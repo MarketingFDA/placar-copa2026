@@ -6,37 +6,24 @@
 <title>Copa 2026 — 1ª Dinâmica</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700;900&display=swap');
-
 :root{
   --g:#00A651;--g2:#4DCC85;--g3:#006B34;
   --gold:#FFD700;--gold2:#C9A84C;--gold3:#7a5000;
-  --sil:#C8C8C8;--bro:#CD7F32;
-  --red:#cc0000;
+  --sil:#C8C8C8;--bro:#CD7F32;--red:#cc0000;
   --bg:#04060e;--dark:#080c1a;--card:#0e1221;--card2:#111628;
-  --brd:rgba(255,255,255,.06);
-  --w:#fff;--gray:#6a7290;
+  --brd:rgba(255,255,255,.06);--w:#fff;--gray:#6a7290;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--w);font-family:'Inter',sans-serif;min-height:100vh;overflow-x:hidden}
-
-/* BG */
 #bgc{position:fixed;inset:0;z-index:0;pointer-events:none}
-.bgfield{
-  position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.035;
-  background:
-    repeating-linear-gradient(0deg,transparent,transparent 59px,rgba(0,166,81,.6) 59px,rgba(0,166,81,.6) 60px),
-    repeating-linear-gradient(90deg,transparent,transparent 59px,rgba(0,166,81,.6) 59px,rgba(0,166,81,.6) 60px);
-  animation:fmove 25s linear infinite;
-}
+.bgfield{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.035;background:repeating-linear-gradient(0deg,transparent,transparent 59px,rgba(0,166,81,.6) 59px,rgba(0,166,81,.6) 60px),repeating-linear-gradient(90deg,transparent,transparent 59px,rgba(0,166,81,.6) 59px,rgba(0,166,81,.6) 60px);animation:fmove 25s linear infinite}
 @keyframes fmove{to{background-position:0 60px,60px 0}}
 .bl{position:fixed;border-radius:50%;filter:blur(130px);pointer-events:none;z-index:0;animation:bdrift 16s ease-in-out infinite alternate}
 .bl1{width:650px;height:650px;background:radial-gradient(circle,rgba(0,166,81,.09),transparent 70%);top:-180px;left:-180px;animation-duration:19s}
 .bl2{width:550px;height:550px;background:radial-gradient(circle,rgba(212,160,23,.07),transparent 70%);bottom:-130px;right:-130px;animation-duration:13s;animation-delay:-6s}
 .bl3{width:380px;height:380px;background:radial-gradient(circle,rgba(0,80,200,.05),transparent 70%);top:45%;left:48%;animation-duration:23s;animation-delay:-12s}
 @keyframes bdrift{0%{transform:translate(0,0) scale(1)}40%{transform:translate(70px,50px) scale(1.1)}70%{transform:translate(-45px,70px) scale(.93)}100%{transform:translate(35px,-35px) scale(1.04)}}
-
-/* TICKER */
 .ticker{position:sticky;top:0;z-index:100;background:linear-gradient(90deg,#020408,#061712,#020408);border-bottom:1px solid rgba(0,166,81,.2);overflow:hidden;height:34px;display:flex;align-items:center}
 .tlabel{flex-shrink:0;background:var(--g);color:#000;font-weight:900;font-size:10px;letter-spacing:2px;padding:0 14px;height:100%;display:flex;align-items:center;white-space:nowrap}
 .tscroll{overflow:hidden;flex:1}
@@ -44,11 +31,7 @@ body{background:var(--bg);color:var(--w);font-family:'Inter',sans-serif;min-heig
 .titem{font-size:11px;letter-spacing:1px;padding:0 20px;color:#999;border-right:1px solid rgba(255,255,255,.07);flex-shrink:0}
 .titem b{color:var(--gold);font-weight:700}
 @keyframes troll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-
-/* LAYOUT */
 .wrap{position:relative;z-index:1;max-width:1280px;margin:0 auto;padding:0 24px 80px}
-
-/* HEADER */
 .hdr{text-align:center;padding:54px 20px 38px;position:relative}
 .hdr::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:88%;max-width:760px;height:2px;background:linear-gradient(90deg,transparent,var(--g),var(--gold),var(--g),transparent);box-shadow:0 0 28px rgba(0,166,81,.45)}
 .livebadge{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#700,var(--red));color:#fff;font-size:11px;font-weight:800;letter-spacing:3px;padding:6px 18px;border-radius:3px;text-transform:uppercase;margin-bottom:18px;box-shadow:0 0 25px rgba(204,0,0,.5);animation:lpulse 2s ease-in-out infinite}
@@ -63,15 +46,11 @@ body{background:var(--bg);color:var(--w);font-family:'Inter',sans-serif;min-heig
 .trophyrow{display:flex;align-items:center;justify-content:center;gap:20px;margin:28px 0 0;font-size:32px}
 .trophyrow::before,.trophyrow::after{content:'';flex:1;max-width:220px;height:1px;background:linear-gradient(90deg,transparent,rgba(0,166,81,.4))}
 .trophyrow::after{background:linear-gradient(90deg,rgba(0,166,81,.4),transparent)}
-
-/* STATS */
 .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:14px;margin-bottom:44px}
 .sc{background:var(--card);border:1px solid var(--brd);border-radius:12px;padding:18px 12px;text-align:center;transition:transform .3s,box-shadow .3s;cursor:default}
 .sc:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(0,166,81,.12)}
 .sc-num{font-family:'Bebas Neue',sans-serif;font-size:34px;color:var(--g);line-height:1;margin-bottom:4px}
 .sc-lbl{font-size:9px;color:var(--gray);letter-spacing:2px;text-transform:uppercase}
-
-/* LEADER */
 .leader{background:linear-gradient(135deg,#003d18,#006b32,#00a651,#004e20);border-radius:16px;padding:24px 34px;display:flex;align-items:center;gap:26px;margin-bottom:42px;position:relative;overflow:hidden;border:1px solid rgba(0,166,81,.3);box-shadow:0 8px 55px rgba(0,166,81,.28),inset 0 1px 0 rgba(255,255,255,.07);transition:transform .3s,box-shadow .3s}
 .leader::before{content:'';position:absolute;top:-40%;right:-5%;width:280px;height:280px;background:rgba(255,255,255,.04);border-radius:50%}
 .leader:hover{transform:translateY(-2px);box-shadow:0 18px 70px rgba(0,166,81,.4)}
@@ -84,12 +63,8 @@ body{background:var(--bg);color:var(--w);font-family:'Inter',sans-serif;min-heig
 @keyframes pglow{0%{text-shadow:0 0 28px rgba(255,215,0,.5)}100%{text-shadow:0 0 70px rgba(255,215,0,1),0 0 110px rgba(255,215,0,.35)}}
 .lbadge{font-size:46px;animation:bbounce .8s ease-in-out infinite alternate}
 @keyframes bbounce{0%{transform:scale(1) rotate(-5deg)}100%{transform:scale(1.15) rotate(5deg)}}
-
-/* SEC LABEL */
 .seclbl{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:5px;color:var(--g);margin:0 0 18px;display:flex;align-items:center;gap:14px;text-shadow:0 0 18px rgba(0,166,81,.35)}
 .seclbl::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,rgba(0,166,81,.45),transparent)}
-
-/* CARDS */
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:20px;margin-bottom:52px}
 .card{background:var(--card);border:1px solid var(--brd);border-radius:18px;padding:26px;position:relative;overflow:hidden;cursor:pointer;transition:all .4s cubic-bezier(.34,1.56,.64,1)}
 .card::before{content:'';position:absolute;inset:0;border-radius:18px;background:radial-gradient(circle at 50% -10%,rgba(0,166,81,.07),transparent 60%);opacity:0;transition:opacity .4s}
@@ -104,7 +79,6 @@ body{background:var(--bg);color:var(--w);font-family:'Inter',sans-serif;min-heig
 .card.cs::after{background:linear-gradient(90deg,#444,var(--sil),#e8e8e8)}
 .card.cb{border-color:rgba(205,127,50,.18)}
 .card.cb::after{background:linear-gradient(90deg,#6b3600,var(--bro),#e8a050)}
-
 .chip{font-family:'Bebas Neue',sans-serif;font-size:11px;letter-spacing:1.5px;padding:4px 13px;border-radius:28px;background:rgba(255,255,255,.05);color:var(--gray)}
 .card.cg .chip{background:rgba(255,215,0,.12);color:var(--gold);box-shadow:0 0 10px rgba(255,215,0,.18)}
 .card.cs .chip{background:rgba(200,200,200,.1);color:var(--sil)}
@@ -134,8 +108,6 @@ body{background:var(--bg);color:var(--w);font-family:'Inter',sans-serif;min-heig
 .card.cg .pbfill{background:linear-gradient(90deg,#6a4600,var(--gold2),var(--gold))}
 .card.cs .pbfill{background:linear-gradient(90deg,#444,var(--sil))}
 .card.cb .pbfill{background:linear-gradient(90deg,#6b3600,var(--bro))}
-
-/* TABLE */
 .twrap{background:var(--card2);border:1px solid var(--brd);border-radius:18px;overflow:hidden;box-shadow:0 10px 50px rgba(0,0,0,.5)}
 .thead{display:grid;grid-template-columns:60px 1fr 90px 110px 60px;padding:13px 26px;background:rgba(255,255,255,.025);border-bottom:1px solid var(--brd);font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gray)}
 .trow{display:grid;grid-template-columns:60px 1fr 90px 110px 60px;padding:14px 26px;border-bottom:1px solid rgba(255,255,255,.03);align-items:center;transition:all .2s ease;cursor:default}
@@ -160,132 +132,132 @@ body{background:var(--bg);color:var(--w);font-family:'Inter',sans-serif;min-heig
 .trow.rs .tbarf{background:linear-gradient(90deg,#555,var(--sil))}
 .trow.rb .tbarf{background:linear-gradient(90deg,#6b3600,var(--bro))}
 .tmed{text-align:right;font-size:19px}
-
-/* PHOTO NOTICE */
 .photonote{display:flex;align-items:center;gap:12px;background:rgba(0,166,81,.07);border:1px solid rgba(0,166,81,.18);border-radius:10px;padding:12px 18px;margin-bottom:14px;font-size:12px;color:rgba(255,255,255,.75);letter-spacing:.5px}
 .photonote span{font-size:20px;flex-shrink:0}
 .photonote b{color:var(--g2)}
-
-/* LINK EQUIPE */
 .tlink{color:inherit;text-decoration:none;display:inline-flex;align-items:center;gap:7px;transition:color .2s}
 .tlink:hover{color:var(--g2)}
 .tlink .cam{font-size:13px;opacity:.45;transition:opacity .2s,transform .2s}
 .tlink:hover .cam{opacity:1;transform:scale(1.2)}
-
-/* SEARCH */
 .srchw{margin-bottom:16px;position:relative}
 .srchi{width:100%;background:var(--card);border:1px solid var(--brd);border-radius:10px;padding:12px 18px 12px 44px;color:var(--w);font-size:13px;outline:none;font-family:'Inter',sans-serif;transition:border-color .2s,box-shadow .2s}
 .srchi:focus{border-color:rgba(0,166,81,.38);box-shadow:0 0 18px rgba(0,166,81,.1)}
 .srchi::placeholder{color:var(--gray)}
 .srchico{position:absolute;left:15px;top:50%;transform:translateY(-50%);font-size:15px;opacity:.38;pointer-events:none}
-
-/* GALLERY */
-.galsec{margin-top:60px}
+/* CAROUSEL */
+.carsec{margin-top:52px}
+.carwrap{position:relative;border-radius:18px;overflow:hidden;background:#000;box-shadow:0 16px 60px rgba(0,0,0,.7)}
+.cartrack{display:flex;transition:transform .55s cubic-bezier(.77,0,.175,1)}
+.carslide{flex-shrink:0;width:100%;position:relative;cursor:pointer}
+.carslide img{width:100%;height:520px;object-fit:cover;display:block;opacity:.92}
+.caroverlay{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.82));padding:24px 28px 22px;display:flex;align-items:flex-end;justify-content:space-between;gap:16px;pointer-events:none}
+.carteam{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:2px;text-shadow:0 2px 12px rgba(0,0,0,.8)}
+.carbadge{font-size:24px}
+.carptsw{text-align:right}
+.carpts{font-family:'Bebas Neue',sans-serif;font-size:38px;color:var(--gold);line-height:1;text-shadow:0 0 20px rgba(255,215,0,.5)}
+.carptslbl{font-size:9px;color:rgba(255,255,255,.55);letter-spacing:2px;text-transform:uppercase}
+.carbtn{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,.45);border:1px solid rgba(255,255,255,.15);color:#fff;font-size:28px;width:48px;height:48px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s,border-color .2s;z-index:10;backdrop-filter:blur(4px)}
+.carbtn:hover{background:rgba(0,166,81,.45);border-color:var(--g)}
+.carbtn.cprev{left:16px}
+.carbtn.cnext{right:16px}
+.cardots{display:flex;justify-content:center;gap:7px;padding:14px 0 4px}
+.cdot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.18);cursor:pointer;transition:background .2s,transform .2s}
+.cdot.on{background:var(--g);transform:scale(1.4)}
+.carcnt{text-align:right;font-size:10px;color:var(--gray);letter-spacing:2px;padding:4px 6px 0}
+/* GALLERY STRIP */
+.galsec{margin-top:52px}
 .galstrip{display:flex;gap:16px;overflow-x:auto;padding-bottom:18px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;cursor:grab;user-select:none}
 .galstrip::-webkit-scrollbar{height:4px}
 .galstrip::-webkit-scrollbar-track{background:rgba(255,255,255,.04);border-radius:4px}
 .galstrip::-webkit-scrollbar-thumb{background:var(--g3);border-radius:4px}
-.gcard{flex-shrink:0;width:210px;scroll-snap-align:start;background:var(--card);border:1px solid var(--brd);border-radius:16px;padding:22px 18px 18px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;transition:transform .35s,box-shadow .35s,border-color .35s;position:relative;overflow:hidden;cursor:pointer}
-.gcard::before{content:'';position:absolute;inset:0;border-radius:16px;background:radial-gradient(circle at 50% 0%,rgba(0,166,81,.07),transparent 65%);opacity:0;transition:opacity .35s}
+.gcard{flex-shrink:0;width:200px;scroll-snap-align:start;background:var(--card);border:1px solid var(--brd);border-radius:14px;display:flex;flex-direction:column;align-items:center;text-align:center;overflow:hidden;transition:transform .35s,box-shadow .35s,border-color .35s;cursor:pointer}
 .gcard:hover{transform:translateY(-10px) scale(1.025);border-color:rgba(0,166,81,.35);box-shadow:0 22px 55px rgba(0,166,81,.16)}
-.gcard:hover::before{opacity:1}
-.gcard.gg{background:linear-gradient(150deg,#0f0c02,#18130a);border-color:rgba(255,215,0,.18)}
-.gcard.gg:hover{border-color:rgba(255,215,0,.45);box-shadow:0 22px 55px rgba(255,215,0,.14)}
-.gcard.gs{border-color:rgba(200,200,200,.12)}
-.gcard.gs:hover{border-color:rgba(200,200,200,.35)}
-.gcard.gb{border-color:rgba(205,127,50,.15)}
-.gcard.gb:hover{border-color:rgba(205,127,50,.35)}
-.gico{font-size:36px;animation:gicobounce 3s ease-in-out infinite alternate}
-@keyframes gicobounce{0%{transform:translateY(0) scale(1)}100%{transform:translateY(-6px) scale(1.1)}}
-.gname{font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:1.5px;line-height:1.2;color:var(--w)}
+.gcard.gg{border-color:rgba(255,215,0,.22)}
+.gcard.gg:hover{border-color:rgba(255,215,0,.5);box-shadow:0 22px 55px rgba(255,215,0,.14)}
+.gcard.gs{border-color:rgba(200,200,200,.15)}
+.gcard.gs:hover{border-color:rgba(200,200,200,.4)}
+.gcard.gb{border-color:rgba(205,127,50,.18)}
+.gcard.gb:hover{border-color:rgba(205,127,50,.4)}
+.gthumb{width:100%;height:118px;object-fit:cover;display:block;background:#0a0e1a}
+.gthumb-ph{width:100%;height:118px;display:flex;align-items:center;justify-content:center;font-size:36px;background:linear-gradient(135deg,#0a0e1a,#111628)}
+.gbody{padding:14px 14px 12px;width:100%}
+.gname{font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:1.5px;line-height:1.2;color:var(--w);margin-bottom:3px}
 .gcard.gg .gname{color:var(--gold)}
 .gcard.gs .gname{color:var(--sil)}
 .gcard.gb .gname{color:var(--bro)}
-.gpts{font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--g);line-height:1}
+.gpts{font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--g);line-height:1;margin-bottom:10px}
 .gcard.gg .gpts{color:var(--gold)}
 .gcard.gs .gpts{color:var(--sil)}
 .gcard.gb .gpts{color:var(--bro)}
-.gptslbl{font-size:9px;color:var(--gray);letter-spacing:2px;text-transform:uppercase;margin-top:-6px}
-.gbtn{display:inline-flex;align-items:center;gap:7px;background:rgba(0,166,81,.1);border:1px solid rgba(0,166,81,.25);color:var(--g2);font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:8px 16px;border-radius:40px;text-decoration:none;margin-top:4px;transition:background .2s,border-color .2s,color .2s,transform .2s}
-.gbtn:hover{background:rgba(0,166,81,.22);border-color:var(--g);color:#fff;transform:scale(1.06)}
+.gbtn{display:inline-flex;align-items:center;gap:6px;background:rgba(0,166,81,.1);border:1px solid rgba(0,166,81,.25);color:var(--g2);font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:7px 14px;border-radius:40px;text-decoration:none;transition:background .2s,border-color .2s,color .2s}
+.gbtn:hover{background:rgba(0,166,81,.22);border-color:var(--g);color:#fff}
 .gcard.gg .gbtn{background:rgba(255,215,0,.08);border-color:rgba(255,215,0,.3);color:var(--gold)}
-.gcard.gg .gbtn:hover{background:rgba(255,215,0,.2);border-color:var(--gold);color:#fff}
 .gcard.gs .gbtn{background:rgba(200,200,200,.07);border-color:rgba(200,200,200,.25);color:var(--sil)}
 .gcard.gb .gbtn{background:rgba(205,127,50,.08);border-color:rgba(205,127,50,.25);color:var(--bro)}
-.ghint{font-size:10px;color:var(--gray);letter-spacing:1px;margin-top:2px;opacity:.6}
-
+/* LIGHTBOX */
+.lb{position:fixed;inset:0;background:rgba(0,0,0,.93);z-index:9000;display:none;align-items:center;justify-content:center;backdrop-filter:blur(6px)}
+.lb.open{display:flex}
+.lbinner{position:relative;max-width:92vw;max-height:92vh}
+.lbimg{max-width:90vw;max-height:85vh;object-fit:contain;border-radius:8px;display:block}
+.lbclose{position:absolute;top:-14px;right:-14px;width:36px;height:36px;background:#111;border:1px solid rgba(255,255,255,.15);border-radius:50%;color:#fff;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s}
+.lbclose:hover{background:var(--red)}
+.lblabel{position:absolute;bottom:-32px;left:0;right:0;text-align:center;font-size:12px;color:rgba(255,255,255,.5);letter-spacing:2px}
 /* CONFETTI */
 .cf{position:fixed;top:-12px;pointer-events:none;z-index:9999;border-radius:2px;animation:cfall linear forwards}
 @keyframes cfall{to{transform:translateY(110vh) rotate(720deg);opacity:0}}
-
-/* FOOTER */
 .footer{text-align:center;padding:28px;color:var(--gray);font-size:10px;letter-spacing:3px;text-transform:uppercase;border-top:1px solid rgba(255,255,255,.04);margin-top:40px}
 .pdot{display:inline-block;width:8px;height:8px;background:var(--g);border-radius:50%;margin-right:8px;animation:pring 2s ease infinite}
 @keyframes pring{0%{box-shadow:0 0 0 0 rgba(0,166,81,.6)}70%{box-shadow:0 0 0 10px rgba(0,166,81,0)}100%{box-shadow:0 0 0 0 rgba(0,166,81,0)}}
-
 ::-webkit-scrollbar{width:5px}
 ::-webkit-scrollbar-track{background:var(--bg)}
 ::-webkit-scrollbar-thumb{background:var(--g3);border-radius:3px}
-
 @media(max-width:640px){
   .thead,.trow{grid-template-columns:46px 1fr 70px 0 46px}
   .tbarw{display:none}
   .lpts{font-size:50px}
   .grid{grid-template-columns:1fr}
+  .carslide img{height:320px}
 }
 </style>
 </head>
 <body>
-
 <canvas id="bgc"></canvas>
 <div class="bgfield"></div>
 <div class="bl bl1"></div>
 <div class="bl bl2"></div>
 <div class="bl bl3"></div>
-
-<!-- TICKER -->
 <div class="ticker">
-  <div class="tlabel">⚽ AO VIVO</div>
+  <div class="tlabel">&#9917; AO VIVO</div>
   <div class="tscroll"><div class="ttrack" id="ttrack"></div></div>
 </div>
-
 <div class="wrap">
-
   <div class="hdr">
     <div class="livebadge"><div class="ldot"></div>AO VIVO</div>
-    <div style="margin-bottom:12px"><span class="dintag">🏅 1ª Dinâmica — Resultado Oficial</span></div>
+    <div style="margin-bottom:12px"><span class="dintag">&#127885; 1&#170; Din&#226;mica &#8212; Resultado Oficial</span></div>
     <div class="htitle">COPA 2026</div>
     <div class="hsub">Championship</div>
     <div class="hdesc">Placar de Desempenho por Equipe</div>
-    <div class="trophyrow">🏆</div>
+    <div class="trophyrow">&#127942;</div>
   </div>
-
-  <!-- STATS -->
   <div class="stats" id="stats"></div>
-
-  <!-- LEADER -->
   <div class="leader">
-    <div class="lcrown">👑</div>
+    <div class="lcrown">&#128081;</div>
     <div class="linfo">
-      <div class="llbl">Líder da 1ª Dinâmica</div>
-      <div class="lname" id="lname">—</div>
+      <div class="llbl">L&#237;der da 1&#170; Din&#226;mica</div>
+      <div class="lname" id="lname">&#8212;</div>
     </div>
-    <div class="lpts" id="lpts">—</div>
-    <div class="lbadge">🥇</div>
+    <div class="lpts" id="lpts">&#8212;</div>
+    <div class="lbadge">&#129351;</div>
   </div>
-
-  <!-- TOP 6 -->
-  <div class="seclbl">🏆 Top 6 — Destaques da Dinâmica</div>
+  <div class="seclbl">&#127942; Top 6 &#8212; Destaques da Din&#226;mica</div>
   <div class="grid" id="topgrid"></div>
-
-  <!-- FULL RANKING -->
-  <div class="seclbl">📋 Classificação Geral — Todos os Participantes</div>
+  <div class="seclbl">&#128203; Classifica&#231;&#227;o Geral &#8212; Todos os Participantes</div>
   <div class="photonote">
-    <span>📷</span>
+    <span>&#128247;</span>
     <div>Clique no nome de qualquer equipe para <b>visualizar as fotos da filial</b> diretamente.</div>
   </div>
   <div class="srchw">
-    <span class="srchico">🔍</span>
+    <span class="srchico">&#128269;</span>
     <input class="srchi" id="srch" type="text" placeholder="Buscar equipe...">
   </div>
   <div class="twrap">
@@ -298,50 +270,69 @@ body{background:var(--bg);color:var(--w);font-family:'Inter',sans-serif;min-heig
     <div id="fulltbl"></div>
   </div>
 
-  <!-- GALLERY -->
-  <div class="galsec">
-    <div class="seclbl">📸 Álbum da 1ª Dinâmica — Fotos por Equipe</div>
-    <div class="galstrip" id="galstrip"></div>
-    <div style="text-align:center;font-size:11px;color:var(--gray);letter-spacing:2px;margin-top:10px;opacity:.55">
-      ← arraste para navegar · clique para abrir o álbum →
+  <!-- CAROUSEL -->
+  <div class="carsec">
+    <div class="seclbl">&#127902;&#65039; Galeria de Fotos &#8212; 1&#170; Din&#226;mica</div>
+    <div class="carwrap">
+      <div class="cartrack" id="cartrack"></div>
+      <button class="carbtn cprev" id="cprev">&#8249;</button>
+      <button class="carbtn cnext" id="cnext">&#8250;</button>
     </div>
+    <div class="cardots" id="cardots"></div>
+    <div class="carcnt" id="carcnt"></div>
   </div>
 
+  <!-- GALLERY STRIP -->
+  <div class="galsec">
+    <div class="seclbl">&#128247; &#193;lbuns por Equipe</div>
+    <div class="galstrip" id="galstrip"></div>
+    <div style="text-align:center;font-size:11px;color:var(--gray);letter-spacing:2px;margin-top:10px;opacity:.55">
+      &#8592; arraste para navegar &#183; clique para abrir a pasta &#8594;
+    </div>
+  </div>
 </div>
 
-<div class="footer"><span class="pdot"></span>1ª Dinâmica · Resultado Oficial · FIFA World Cup 2026 Style</div>
+<!-- LIGHTBOX -->
+<div class="lb" id="lb">
+  <div class="lbinner">
+    <img class="lbimg" id="lbimg" src="" alt="">
+    <button class="lbclose" id="lbclose">&#10005;</button>
+    <div class="lblabel" id="lblabel"></div>
+  </div>
+</div>
+
+<div class="footer"><span class="pdot"></span>1&#170; Din&#226;mica &#183; Resultado Oficial &#183; FIFA World Cup 2026 Style</div>
 
 <script>
-// ── DADOS ──────────────────────────────────────────────
 var RAW = [
   {name:"Campinas",               score:120},
   {name:"Comercial RJ",           score:114},
   {name:"Adm. e Copa SP",         score:114},
-  {name:"Ribeirão Preto",         score:112},
+  {name:"Ribeão Preto",      score:112},
   {name:"Belo Horizonte",         score:110},
   {name:"TI Rio de Janeiro",      score:105},
-  {name:"CID Imobiliário RJ",     score:103},
+  {name:"CID Imobiliário RJ",score:103},
   {name:"Joinville",              score:99},
-  {name:"Jurídico Curitiba",      score:97},
+  {name:"Jurídico Curitiba", score:97},
   {name:"Arquivo e Auditoria RJ", score:96},
   {name:"Manaus",                 score:96},
-  {name:"Recepção e Copa RJ",     score:92},
+  {name:"Recepção e Copa RJ",score:92},
   {name:"Comercial SP",           score:84},
-  {name:"Jur. Tributário RJ",     score:66},
+  {name:"Jur. Tributário RJ",score:66},
   {name:"Jur. Trabalhista RJ",    score:61},
-  {name:"Jurídico SP",            score:61},
+  {name:"Jurídico SP",       score:61},
   {name:"Contab. e TI SP",        score:60},
-  {name:"Espírito Santo",         score:56},
+  {name:"Espírito Santo",    score:56},
   {name:"Comercial Salvador",     score:44},
   {name:"Contabilidade Salvador", score:44},
-  {name:"Jurídico Salvador",      score:44},
+  {name:"Jurídico Salvador", score:44},
   {name:"Pernambuco",             score:36},
-  {name:"Piraúba",                score:33}
+  {name:"Piraúba",           score:33}
 ];
 
 var SLOGANS = {
   "Campinas":"Campeões da 1ª Dinâmica","Comercial RJ":"Força no Campo de Vendas",
-  "Adm. e Copa SP":"Eficiência em Campo","Ribeirão Preto":"Precisão e Determinação",
+  "Adm. e Copa SP":"Eficiência em Campo","Ribeão Preto":"Precisão e Determinação",
   "Belo Horizonte":"Estratégia Mineira","TI Rio de Janeiro":"Inovação em Campo",
   "CID Imobiliário RJ":"Garra Imobiliária","Joinville":"Sul com Determinação",
   "Jurídico Curitiba":"Direito à Vitória","Arquivo e Auditoria RJ":"Ordem e Resultado",
@@ -354,331 +345,290 @@ var SLOGANS = {
   "Piraúba":"Zona da Mata Presente"
 };
 
-// links das pastas de fotos por equipe (Google Drive)
-var LINKS = {
-  "Campinas":               "https://drive.google.com/drive/folders/1lug56PHvdKVzTY7N2z5rZRRCMzVv16i?usp=drivelink",
-  "Comercial RJ":           "https://drive.google.com/drive/folders/1w18CfwpYXcEgKjdqpMS6ty2pqqxwd0c?usp=drivelink",
-  "Adm. e Copa SP":         "https://drive.google.com/drive/folders/1nUkvkzJjTWDx5tDLygC4LaTvtKyFYBIP?usp=drive_link",
-  "Ribeirão Preto":         "https://drive.google.com/drive/folders/1GaMiKc5Qb-dUUuRyeyUKZK723rRmjO?usp=drive_link",
-  "Belo Horizonte":         "https://drive.google.com/drive/folders/1nI5UAend19TVzvKambjYMZRPdaX5ZFRt?usp=drive_link",
-  "TI Rio de Janeiro":      "https://drive.google.com/drive/folders/1lOF1FdXtf3deavybyREkpK6j95-OPbnb?usp=drive_link",
-  "CID Imobiliário RJ":     "https://drive.google.com/drive/folders/1OrT7nkZiZVtFB8yjvIVS3C9DllaM28v?usp=drivelink",
-  "Joinville":              "https://drive.google.com/drive/folders/1RnBKsrd2xJUnBoGcXea73OH9EMVCU2k?usp=drivelink",
-  "Jurídico Curitiba":      "https://drive.google.com/drive/folders/1E4KWXXU6EqkGi-C6OrpWTQe8KmvKzywb?usp=drive_link",
-  "Arquivo e Auditoria RJ": "https://drive.google.com/drive/folders/1NO1iOCxI0PYj1IUht25UFLYR2q73AqV?usp=drivelink",
-  "Manaus":                 "https://drive.google.com/drive/folders/10jVi-QBD_lHprtlYpYGNU2J3USaV2Ptw?usp=sharing",
-  "Recepção e Copa RJ":     "https://drive.google.com/drive/folders/1NnCHcZcXqHaINOt6eTT1bNzd4G7x-2uP?usp=drive_link",
-  "Comercial SP":           "https://drive.google.com/drive/folders/1ffeavXVxMZI7P6hbtoIZUNRyusW6pXe?usp=drivelink",
-  "Jur. Tributário RJ":     "https://drive.google.com/drive/folders/1wAN8byoAFaM92DRdiiiMPY0guyqEcoR?usp=drivelink",
-  "Jur. Trabalhista RJ":    "https://drive.google.com/drive/folders/1EwP3a-EeBk3FGDaqddIduzEiM-5ZdL4k?usp=drive_link",
-  "Jurídico SP":            "https://drive.google.com/drive/folders/1iYwSq4QXnut94MXUeCJD9tepRELND7Pf?usp=sharing",
-  "Contab. e TI SP":        "https://drive.google.com/drive/folders/1R3tAmAYneue-xLQbnxoHZe4touHj-c3m?usp=drive_link",
-  "Espírito Santo":         "https://drive.google.com/drive/folders/1iS5xdu5avAO6Z8nq7aWbVo9OlCcXB?usp=drivelink",
-  "Comercial Salvador":     "https://drive.google.com/drive/folders/1vMSbRaVcfi3q8OaEEg8QO4S2jUWWZF?usp=sharing",
-  "Contabilidade Salvador": "https://drive.google.com/drive/folders/1vMSbRaVcfi3q8OaEEg8QO4S2jUWWZF?usp=sharing",
-  "Jurídico Salvador":      "https://drive.google.com/drive/folders/1vMSbRaVcfi3q8OaEEg8QO4S2jUWWZF?usp=sharing",
-  "Pernambuco":             "https://drive.google.com/drive/folders/1Yev8frnhx7bfltUvnYqE-vaRTQHTVJnG?usp=drive_link",
-  "Piraúba":                "https://drive.google.com/drive/folders/1dPZN5DHOTh2qSOouAW84U7yYXPko3aOd?usp=drive_link"
+var PHOTOS = {
+  "Campinas":["1RaDbRY5Ipbb8wbe8p4tnx66ZmSy26uyN","11yOAcxCzeZfy8IPTfh4LMo3pf0ZG-axn"],
+  "Comercial RJ":["1LcqbTTuyNi4yeDSHqysMG4FS0mD7s3xQ","16MEsaWNYT5bdec3pZ303RHysbWkaXuxY","16dCNiAPs4bwoSyPLQsgwveAT5evIKJuP"],
+  "Adm. e Copa SP":["14vQWladMW32PC8uPR5YN8Gexc6Hzzv","1K5t7dTcRROR44T4MorRwi4a8xeLRYN","1ZTJtKFZoV0AYaKAyW7RjD7FbAMpoda","13dUvRgAZ0u4M1fbFP8k88Q8n5FhHXf5s"],
+  "Ribeão Preto":["1X2oRv-DopD5VTsPxFZWehMQ7UGJWRCv"],
+  "Belo Horizonte":["1z8Fy28GU2aCaoIZjIBadKGfv6UBrUfG6","11qViNQAXuyV4xFIjI8v1D78YcQYHzD5X","1Yzot-nUu9Fi-T7pwm1RZmu3QqhmFl1D"],
+  "TI Rio de Janeiro":["16bRzGt5gzQXeXfKNz1jHArQTXRCcRav","1ko7uYcBRZK1fTWz9QuYUQXsXUSZmBM5Z","1KYqfKdK9o97HhODtxxA5TjwD8SJWQPA","1yiizq6nTfJ6Vc3pNsLsbjwub7p9kuIz8","1I180zcxGVOBJ43yDW5d1PqptipWvX7c","1fvBXfGhMPtX4DNMxTyvLntarN5ixoC5w","1wMYpi-CkELdhe5yTUk704Nl6wOzz5tE","1vtYDFgwxI2UgANvaNwWERPAU7998ZcX-"],
+  "CID Imobiliário RJ":["1whyxwN3zmcSPtYVibYlJQO1RbcbrfkNT"],
+  "Joinville":["1xeRK4gDk49rNpOCQG25tZGt40Vne5YnI","1bIoKEW8XbuyXCAEJskfxFULXBhNUbe2b","16Q36LZ-oG9aqMhqQCtXdRBmzoE6lEh4"],
+  "Jurídico Curitiba":["1hVGbdvwPF2iuvYznSqb73fczSdLLBqP","1xHuQAln37kbtIUlJx-rJJPzTN2VQ5TYz","1o7FMMWMaroZYxTaTxuGgOL9oQQgO1quI","1MLH2O2qp8LKwkFVn3n3Oawdj31dGxoCm","1iA0uQ4Mdwg2-FLo3zoHZVDkKLs1oZMEy"],
+  "Arquivo e Auditoria RJ":["1RhGkiESFmiC7GurQTZ8asQWV3WlNsNUM","1hmZ3zScoIUc3RCzN84trSt506ZfSiXW9","17E5bonOEjJTa3O98neNj61HANgY7WiX8","1oUTJyWO5R4inUVGjoLvFQwNnRTDCjbYv","128ofCLe0GY0Kx4vj4CdoTx5Evj0elsly","1qaAA2KhvI-LkcNruK8IeR4fX1jOJy4MK","1GsYZJSmmprDMhhid8xjyOCPYuvyj0zGG"],
+  "Manaus":["1TNe-4Jjg7Z8OV4zjnwhvvoBSmkjNF9Dy","1Aqq3v7D6kN5U-s-2FPAmIHfbG4hkogwZ","1xWdrnz4DfTrE0B5coOYi9MnP5LypA","111Hh6d3vtet2wyMfW6t2-rPhdK2LVwV","1EUp0WVE4q1QDSsedHcg4tPoTZp4GBer","1z85gVk41OSuiIRJyn4vJ6ol4QYfHl1Tl"],
+  "Recepção e Copa RJ":["16yCeimPiQGrm5hpasV7RKzqBZCtgWIT5","1nFhRCfSTAwNDOpHt5WhqC0NmCMug7ocx","1lCbBt5Bhgc6IND0NmtGgut0ZxfAqJcI","1qJbqB5QeN65IwWoLCrswE3YId0GNwb"],
+  "Comercial SP":["1KFAeefSG3DJJCsLVUjiJdcPbPr4TZ6M","17sUH9JsvAfgVZt0jETDtrtyNJpT0E4UJ","1JmpEUkdnywOd08WlWL85V3cv5TH8mQUZ","1JLXZqJwXqHR9uVxH2qkGfov27msoAj1-","1o3iaJhhzuyxlvDRcOC4MzE8d1ln029oT"],
+  "Jur. Tributário RJ":["1R-L7ixA1OP991pRPD6MBJXtQ8TcvTQUp","1dpCu-myMjDK3jFtPjyQoP-z8z4sRxTm","1dtYSj9diyV3CE-LdfF5RUl9O4NRTEQIC"],
+  "Jur. Trabalhista RJ":["14-ZeVZTl9GundfWnskH6LoKXwDKKa-ha","1VEtpjtPxefj3Xzoy0-PPXbz3iF62mWbG","1rQg53TwZOrIKC6P2EFaYTcScSArK4Q6o","1N8Lf69PaftaYW5OMMlms22wRv8lm8dwy","1uyy5OdW2nAmbrpbs3VH3IA6mk2QWpU1K","17KfLf2CBCtpn1T0HvH26-LaDfHz0sDNc"],
+  "Jurídico SP":["14P0bwSEECsABuaGIrLDum9TYZS2Hb11U","1KAtwfF6IY6IwVS3b82jl8DyEc3bLBCj","1yZFn4-FOEJVY7OGK1ZRZp-fKvG0ERKn","1htKGKeGuCIwnguut8vcNw5gEr5rVYm5H"],
+  "Contab. e TI SP":["18KX24yzw8SAgV0RLt63rnKtbM0cszFY","141PELbPxGOzUKI0-qO5SxQLDUohSmj-","18d0Nbw1XFLOH9L3ReZqt4n7Nwr2Dt2V"],
+  "Espírito Santo":["1wR2BKFgQNiVk4Qx4CcEKrJHnmDAQUJW","1h9StIWj4i0fkBx-u350x4M5vNXGdv20o","1Kdsq0r5MgHS3vibRiPSITwGUmlXDA2k","1YNcw3EBlxoLwEcUDlxEmCCb4ndVPCp7S"],
+  "Comercial Salvador":["164AUHamTnJA5GYgeI1FqtQIgmVM7Lxi9","1c8BP6ADoHqZX8uKmZMlF0RrkmbnpQ2","1e0k2nZjIL8Y3u8Sw1QLXaaQMUaJhDw6","1vmARLgJyHmDMmnuGsenK5lsXWQuOXc7X","10mgYyLsp69NCi6Tj2AI5hYqrZHBFzxpn","1pbGQRtnqLN6n8bf-Hfeg1KswvgN7VHi","1UAFKK729WxOqzt5iaYW6VdRz9KQoQz8","18psQnyTBn1IA5DwR6HUKg277Ku4d-4qU","1Y5sQHjjUKRq9Ffd5-pVBiA3yuA-PHa2z","1RmSdeXfnFPnjcAdM0WZO0DUtsKGdJcF","1aI3YJ9i6Y2vKXgN1vXDPexjqWYqIw3TD","1Pq1qp3P4HqK77JKbJOk9DQn08tlrYv-","1c9QHHaWcayqIomXJl7XTNnozTty5fHG","1fZE2D-P0jyx5qkOl0FlQu5iyvhB5kS4D"],
+  "Contabilidade Salvador":["164AUHamTnJA5GYgeI1FqtQIgmVM7Lxi9","1c8BP6ADoHqZX8uKmZMlF0RrkmbnpQ2","1e0k2nZjIL8Y3u8Sw1QLXaaQMUaJhDw6","1vmARLgJyHmDMmnuGsenK5lsXWQuOXc7X","10mgYyLsp69NCi6Tj2AI5hYqrZHBFzxpn"],
+  "Jurídico Salvador":["164AUHamTnJA5GYgeI1FqtQIgmVM7Lxi9","1vmARLgJyHmDMmnuGsenK5lsXWQuOXc7X","1UAFKK729WxOqzt5iaYW6VdRz9KQoQz8"],
+  "Pernambuco":["1bZg-LdB25vyHxP1nl6isPoQdcio3oAxF","1EfHXpUmBocuHVs9x-kcT8RLirioSTN","1yPCPlEV4uImZwFNxUT-4NPDTS3b5NSyR"],
+  "Piraúba":["1STZU0ms6GhDinuPZak7XE1cYYz0fpo1b"]
 };
 
-// ordena
-var TEAMS = RAW.slice().sort(function(a,b){return b.score-a.score});
-var MAX = TEAMS[0].score;
+var LINKS = {
+  "Campinas":"https://drive.google.com/drive/folders/1lug56PHvdKVzTY7N2z5rZRRCMzVv16i?usp=drivelink",
+  "Comercial RJ":"https://drive.google.com/drive/folders/1w18CfwpYXcEgKjdqpMS6ty2pqqxwd0c?usp=drivelink",
+  "Adm. e Copa SP":"https://drive.google.com/drive/folders/1nUkvkzJjTWDx5tDLygC4LaTvtKyFYBIP?usp=drive_link",
+  "Ribeão Preto":"https://drive.google.com/drive/folders/1GaMiKc5Qb-dUUuRyeyUKZK723rRmjO?usp=drive_link",
+  "Belo Horizonte":"https://drive.google.com/drive/folders/1nI5UAend19TVzvKambjYMZRPdaX5ZFRt?usp=drive_link",
+  "TI Rio de Janeiro":"https://drive.google.com/drive/folders/1lOF1FdXtf3deavybyREkpK6j95-OPbnb?usp=drive_link",
+  "CID Imobiliário RJ":"https://drive.google.com/drive/folders/1OrT7nkZiZVtFB8yjvIVS3C9DllaM28v?usp=drivelink",
+  "Joinville":"https://drive.google.com/drive/folders/1RnBKsrd2xJUnBoGcXea73OH9EMVCU2k?usp=drivelink",
+  "Jurídico Curitiba":"https://drive.google.com/drive/folders/1E4KWXXU6EqkGi-C6OrpWTQe8KmvKzywb?usp=drive_link",
+  "Arquivo e Auditoria RJ":"https://drive.google.com/drive/folders/1NO1iOCxI0PYj1IUht25UFLYR2q73AqV?usp=drivelink",
+  "Manaus":"https://drive.google.com/drive/folders/10jVi-QBD_lHprtlYpYGNU2J3USaV2Ptw?usp=sharing",
+  "Recepção e Copa RJ":"https://drive.google.com/drive/folders/1NnCHcZcXqHaINOt6eTT1bNzd4G7x-2uP?usp=drive_link",
+  "Comercial SP":"https://drive.google.com/drive/folders/1ffeavXVxMZI7P6hbtoIZUNRyusW6pXe?usp=drivelink",
+  "Jur. Tributário RJ":"https://drive.google.com/drive/folders/1wAN8byoAFaM92DRdiiiMPY0guyqEcoR?usp=drivelink",
+  "Jur. Trabalhista RJ":"https://drive.google.com/drive/folders/1EwP3a-EeBk3FGDaqddIduzEiM-5ZdL4k?usp=drive_link",
+  "Jurídico SP":"https://drive.google.com/drive/folders/1iYwSq4QXnut94MXUeCJD9tepRELND7Pf?usp=sharing",
+  "Contab. e TI SP":"https://drive.google.com/drive/folders/1R3tAmAYneue-xLQbnxoHZe4touHj-c3m?usp=drive_link",
+  "Espírito Santo":"https://drive.google.com/drive/folders/1iS5xdu5avAO6Z8nq7aWbVo9OlCcXB?usp=drivelink",
+  "Comercial Salvador":"https://drive.google.com/drive/folders/1vMSbRaVcfi3q8OaEEg8QO4S2jUWWZF?usp=sharing",
+  "Contabilidade Salvador":"https://drive.google.com/drive/folders/1vMSbRaVcfi3q8OaEEg8QO4S2jUWWZF?usp=sharing",
+  "Jurídico Salvador":"https://drive.google.com/drive/folders/1vMSbRaVcfi3q8OaEEg8QO4S2jUWWZF?usp=sharing",
+  "Pernambuco":"https://drive.google.com/drive/folders/1Yev8frnhx7bfltUvnYqE-vaRTQHTVJnG?usp=drive_link",
+  "Piraúba":"https://drive.google.com/drive/folders/1dPZN5DHOTh2qSOouAW84U7yYXPko3aOd?usp=drive_link"
+};
 
-// posições com empate
-var pos = 1;
+function imgUrl(id){return 'https://drive.google.com/thumbnail?id='+id+'&sz=w800';}
+function imgFull(id){return 'https://drive.google.com/uc?export=view&id='+id;}
+
+var TEAMS=RAW.slice().sort(function(a,b){return b.score-a.score});
+var MAX=TEAMS[0].score;
+var pos=1;
 for(var i=0;i<TEAMS.length;i++){
-  if(i>0 && TEAMS[i].score < TEAMS[i-1].score) pos = i+1;
-  TEAMS[i].pos = pos;
+  if(i>0&&TEAMS[i].score<TEAMS[i-1].score)pos=i+1;
+  TEAMS[i].pos=pos;
 }
-
-// scores para medalhas
-var S_GOLD   = TEAMS[0].score;
-var S_SILVER = (function(){ for(var i=0;i<TEAMS.length;i++) if(TEAMS[i].score<S_GOLD)   return TEAMS[i].score; return -1; })();
-var S_BRONZE = (function(){ for(var i=0;i<TEAMS.length;i++) if(TEAMS[i].score<S_SILVER) return TEAMS[i].score; return -1; })();
+var S_GOLD=TEAMS[0].score;
+var S_SILVER=(function(){for(var i=0;i<TEAMS.length;i++)if(TEAMS[i].score<S_GOLD)return TEAMS[i].score;return -1;})();
+var S_BRONZE=(function(){for(var i=0;i<TEAMS.length;i++)if(TEAMS[i].score<S_SILVER)return TEAMS[i].score;return -1;})();
 
 function getMedal(t){
-  if(t.score===S_GOLD)   return {card:"cg",chip:"🥇 OURO",  badge:"🥇",pc:"pg",rc:"rg"};
-  if(t.score===S_SILVER) return {card:"cs",chip:"🥈 PRATA", badge:"🥈",pc:"ps",rc:"rs"};
-  if(t.score===S_BRONZE) return {card:"cb",chip:"🥉 BRONZE",badge:"🥉",pc:"pb",rc:"rb"};
-  return {card:"",chip:"#"+t.pos+" LUGAR",badge:"🎖️",pc:"",rc:""};
+  if(t.score===S_GOLD)  return{card:"cg",chip:"🥇 OURO",  badge:"🥇",pc:"pg",rc:"rg"};
+  if(t.score===S_SILVER)return{card:"cs",chip:"🥈 PRATA", badge:"🥈",pc:"ps",rc:"rs"};
+  if(t.score===S_BRONZE)return{card:"cb",chip:"🥉 BRONZE",badge:"🥉",pc:"pb",rc:"rb"};
+  return{card:"",chip:"#"+t.pos+" LUGAR",badge:"🎖️",pc:"",rc:""};
 }
 
-// ── COUNT-UP ───────────────────────────────────────────
-function countUp(el, target, dur){
-  dur = dur||1600;
-  var start = null;
+function countUp(el,target,dur){
+  dur=dur||1600;var start=null;
   function step(ts){
-    if(!start) start=ts;
-    var p = Math.min((ts-start)/dur,1);
-    var ease = 1-Math.pow(1-p,3);
-    el.textContent = Math.round(ease*target);
-    if(p<1) requestAnimationFrame(step);
-    else el.textContent = target;
+    if(!start)start=ts;
+    var p=Math.min((ts-start)/dur,1),ease=1-Math.pow(1-p,3);
+    el.textContent=Math.round(ease*target);
+    if(p<1)requestAnimationFrame(step);else el.textContent=target;
   }
   requestAnimationFrame(step);
 }
 
-// ── TICKER ────────────────────────────────────────────
 function buildTicker(){
-  var tr = document.getElementById('ttrack');
-  var items = TEAMS.concat(TEAMS); // duplica para loop contínuo
-  items.forEach(function(t){
-    var m = getMedal(t);
-    var d = document.createElement('div');
+  var tr=document.getElementById('ttrack');
+  TEAMS.concat(TEAMS).forEach(function(t){
+    var m=getMedal(t),d=document.createElement('div');
     d.className='titem';
-    d.innerHTML = m.badge+' '+t.name+' <b>'+t.score+' pts</b>';
+    d.innerHTML=m.badge+' '+t.name+' <b>'+t.score+' pts</b>';
     tr.appendChild(d);
   });
 }
 
-// ── STATS ─────────────────────────────────────────────
 function buildStats(){
-  var el = document.getElementById('stats');
-  var total = TEAMS.reduce(function(s,t){return s+t.score},0);
-  var avg   = Math.round(total/TEAMS.length);
-  var above = TEAMS.filter(function(t){return t.score>=100}).length;
-  var data  = [
-    {num:TEAMS.length,   lbl:"Equipes"},
-    {num:total,          lbl:"Pontos totais"},
-    {num:MAX,            lbl:"Maior pontuação"},
-    {num:avg,            lbl:"Média geral"},
-    {num:TEAMS[TEAMS.length-1].score, lbl:"Menor pontuação"},
-    {num:above,          lbl:"Acima de 100 pts"}
-  ];
-  data.forEach(function(s){
-    var d = document.createElement('div');
+  var el=document.getElementById('stats');
+  var total=TEAMS.reduce(function(s,t){return s+t.score},0);
+  var avg=Math.round(total/TEAMS.length);
+  var above=TEAMS.filter(function(t){return t.score>=100}).length;
+  [{num:TEAMS.length,lbl:"Equipes"},{num:total,lbl:"Pontos totais"},{num:MAX,lbl:"Maior pontuação"},{num:avg,lbl:"Média geral"},{num:TEAMS[TEAMS.length-1].score,lbl:"Menor pontuação"},{num:above,lbl:"Acima de 100 pts"}].forEach(function(s){
+    var d=document.createElement('div');
     d.className='sc';
     d.innerHTML='<div class="sc-num">0</div><div class="sc-lbl">'+s.lbl+'</div>';
-    d.querySelector('.sc-num').dataset.target = s.num;
     el.appendChild(d);
-    setTimeout(function(){ countUp(d.querySelector('.sc-num'), s.num, 1400); },300);
+    setTimeout(function(){countUp(d.querySelector('.sc-num'),s.num,1400);},300);
   });
 }
 
-// ── LEADER ────────────────────────────────────────────
 function buildLeader(){
-  document.getElementById('lname').textContent = TEAMS[0].name;
-  countUp(document.getElementById('lpts'), TEAMS[0].score, 2000);
+  document.getElementById('lname').textContent=TEAMS[0].name;
+  countUp(document.getElementById('lpts'),TEAMS[0].score,2000);
 }
 
-// ── TOP 6 CARDS ───────────────────────────────────────
 function buildCards(){
-  var grid = document.getElementById('topgrid');
-  var top6 = TEAMS.slice(0,6);
-  top6.forEach(function(t,idx){
-    var m   = getMedal(t);
-    var pct = Math.round(t.score/MAX*100);
-    var sl  = SLOGANS[t.name]||'Em Campo pela Vitória';
-    var card = document.createElement('div');
+  var grid=document.getElementById('topgrid');
+  TEAMS.slice(0,6).forEach(function(t,idx){
+    var m=getMedal(t),pct=Math.round(t.score/MAX*100),sl=SLOGANS[t.name]||'Em Campo pela Vitória';
+    var card=document.createElement('div');
     card.className='card '+m.card;
     card.style.cssText='opacity:0;transform:translateY(28px);transition:opacity .5s,transform .5s';
-    card.innerHTML=
-      '<div class="ch"><span class="chip">'+m.chip+'</span><span class="cmedal">'+m.badge+'</span></div>'+
-      '<div class="cname">'+t.name+'</div>'+
-      '<div class="cslogan">'+sl+'</div>'+
-      '<div class="srow"><div class="snum">0</div><div class="slbl">PTS</div></div>'+
-      '<div class="pbar">'+
-        '<div class="pbhdr"><span>Desempenho</span><span>'+pct+'%</span></div>'+
-        '<div class="pbtrack"><div class="pbfill"></div></div>'+
-      '</div>';
+    card.innerHTML='<div class="ch"><span class="chip">'+m.chip+'</span><span class="cmedal">'+m.badge+'</span></div><div class="cname">'+t.name+'</div><div class="cslogan">'+sl+'</div><div class="srow"><div class="snum">0</div><div class="slbl">PTS</div></div><div class="pbar"><div class="pbhdr"><span>Desempenho</span><span>'+pct+'%</span></div><div class="pbtrack"><div class="pbfill"></div></div></div>';
     grid.appendChild(card);
-
-    var delay = 180 + idx*110;
     setTimeout(function(){
-      card.style.opacity='1';
-      card.style.transform='translateY(0)';
-      countUp(card.querySelector('.snum'), t.score, 1500+idx*80);
-      setTimeout(function(){
-        card.querySelector('.pbfill').style.width=pct+'%';
-      }, 500);
-    }, delay);
+      card.style.opacity='1';card.style.transform='translateY(0)';
+      countUp(card.querySelector('.snum'),t.score,1500+idx*80);
+      setTimeout(function(){card.querySelector('.pbfill').style.width=pct+'%';},500);
+    },180+idx*110);
   });
 }
 
-// ── FULL TABLE ────────────────────────────────────────
 function buildTable(filter){
-  var tbl = document.getElementById('fulltbl');
+  var tbl=document.getElementById('fulltbl');
   tbl.innerHTML='';
-  var list = filter
-    ? TEAMS.filter(function(t){ return t.name.toLowerCase().indexOf(filter.toLowerCase())>-1; })
-    : TEAMS;
+  var list=filter?TEAMS.filter(function(t){return t.name.toLowerCase().indexOf(filter.toLowerCase())>-1;}):TEAMS;
   list.forEach(function(t,i){
-    var m   = getMedal(t);
-    var pct = Math.round(t.score/MAX*100);
-    var row = document.createElement('div');
+    var m=getMedal(t),pct=Math.round(t.score/MAX*100),href=LINKS[t.name]||'#';
+    var row=document.createElement('div');
     row.className='trow '+m.rc;
     row.style.cssText='opacity:0;transform:translateX(-16px);transition:opacity .35s,transform .35s';
-    var href = LINKS[t.name] || '#';
-    row.innerHTML=
-      '<div class="tpos '+m.pc+'">'+t.pos+'</div>'+
-      '<div class="tname"><a class="tlink" href="'+href+'" target="_blank" rel="noopener">'+m.badge+' '+t.name+' <span class="cam">📷</span></a></div>'+
-      '<div class="tpts">'+t.score+'</div>'+
-      '<div class="tbarw"><div class="tbarf"></div></div>'+
-      '<div class="tmed">'+m.badge+'</div>';
+    row.innerHTML='<div class="tpos '+m.pc+'">'+t.pos+'</div><div class="tname"><a class="tlink" href="'+href+'" target="_blank" rel="noopener">'+m.badge+' '+t.name+' <span class="cam">📷</span></a></div><div class="tpts">'+t.score+'</div><div class="tbarw"><div class="tbarf"></div></div><div class="tmed">'+m.badge+'</div>';
     tbl.appendChild(row);
-    setTimeout(function(){
-      row.style.opacity='1';
-      row.style.transform='translateX(0)';
-      row.querySelector('.tbarf').style.width=pct+'%';
-    }, 50+i*32);
+    setTimeout(function(){row.style.opacity='1';row.style.transform='translateX(0)';row.querySelector('.tbarf').style.width=pct+'%';},50+i*32);
   });
 }
 
-// ── SEARCH ────────────────────────────────────────────
-document.getElementById('srch').addEventListener('input',function(e){
-  buildTable(e.target.value.trim());
+document.getElementById('srch').addEventListener('input',function(e){buildTable(e.target.value.trim());});
+
+// ── CAROUSEL ──────────────────────────────────────────
+var ALL_SLIDES=[];
+TEAMS.forEach(function(t){
+  var ids=PHOTOS[t.name]||[];
+  ids.forEach(function(id){ALL_SLIDES.push({id:id,team:t.name,score:t.score,medal:getMedal(t).badge});});
 });
+
+var carIdx=0,carTimer=null,carPaused=false;
+
+function buildCarousel(){
+  var track=document.getElementById('cartrack');
+  var dots=document.getElementById('cardots');
+  if(!ALL_SLIDES.length)return;
+  ALL_SLIDES.forEach(function(s,i){
+    var slide=document.createElement('div');
+    slide.className='carslide';
+    slide.innerHTML='<img src="'+imgUrl(s.id)+'" alt="'+s.team+'" loading="lazy" onerror="this.style.display=\'none\'">'
+      +'<div class="caroverlay">'
+        +'<div><div class="carteam">'+s.badge+' '+s.team+'</div></div>'
+        +'<div class="carptsw"><div class="carpts">'+s.score+'</div><div class="carptslbl">pontos</div></div>'
+      +'</div>';
+    slide.addEventListener('click',function(){openLightbox(s.id,s.team);});
+    track.appendChild(slide);
+    var dot=document.createElement('div');
+    dot.className='cdot'+(i===0?' on':'');
+    dot.addEventListener('click',function(){goTo(i);});
+    dots.appendChild(dot);
+  });
+  updateCarcnt();
+  startAuto();
+  var wrap=document.querySelector('.carwrap');
+  wrap.addEventListener('mouseenter',function(){carPaused=true;});
+  wrap.addEventListener('mouseleave',function(){carPaused=false;});
+  document.getElementById('cprev').addEventListener('click',function(){goTo((carIdx-1+ALL_SLIDES.length)%ALL_SLIDES.length);});
+  document.getElementById('cnext').addEventListener('click',function(){goTo((carIdx+1)%ALL_SLIDES.length);});
+}
+
+function goTo(n){
+  carIdx=n;
+  document.getElementById('cartrack').style.transform='translateX(-'+n*100+'%)';
+  var dots=document.querySelectorAll('.cdot');
+  dots.forEach(function(d,i){d.className='cdot'+(i===n?' on':'');});
+  updateCarcnt();
+}
+
+function updateCarcnt(){
+  document.getElementById('carcnt').textContent=(carIdx+1)+' / '+ALL_SLIDES.length;
+}
+
+function startAuto(){
+  carTimer=setInterval(function(){
+    if(!carPaused)goTo((carIdx+1)%ALL_SLIDES.length);
+  },4000);
+}
+
+// ── GALLERY STRIP ────────────────────────────────────
+function buildGallery(){
+  var strip=document.getElementById('galstrip');
+  TEAMS.forEach(function(t){
+    var m=getMedal(t),href=LINKS[t.name]||'#';
+    var ids=PHOTOS[t.name]||[];
+    var cls=m.card==='cg'?'gg':m.card==='cs'?'gs':m.card==='cb'?'gb':'';
+    var card=document.createElement('div');
+    card.className='gcard '+cls;
+    var thumb=ids.length?'<img class="gthumb" src="'+imgUrl(ids[0])+'" alt="'+t.name+'" loading="lazy" onerror="this.parentNode.innerHTML=\'<div class=&quot;gthumb-ph&quot;>'+m.badge+'</div>\'">':'<div class="gthumb-ph">'+m.badge+'</div>';
+    card.innerHTML=thumb+'<div class="gbody"><div class="gname">'+t.name+'</div><div class="gpts">'+t.score+' pts</div><a class="gbtn" href="'+href+'" target="_blank" rel="noopener">📂 Ver Álbum</a></div>';
+    strip.appendChild(card);
+  });
+  var isDown=false,startX=0,scrollLeft=0;
+  strip.addEventListener('mousedown',function(e){isDown=true;strip.style.cursor='grabbing';startX=e.pageX-strip.offsetLeft;scrollLeft=strip.scrollLeft;});
+  strip.addEventListener('mouseleave',function(){isDown=false;strip.style.cursor='grab';});
+  strip.addEventListener('mouseup',function(){isDown=false;strip.style.cursor='grab';});
+  strip.addEventListener('mousemove',function(e){if(!isDown)return;e.preventDefault();strip.scrollLeft=scrollLeft-(e.pageX-strip.offsetLeft-startX)*1.2;});
+}
+
+// ── LIGHTBOX ──────────────────────────────────────────
+function openLightbox(id,team){
+  document.getElementById('lbimg').src=imgFull(id);
+  document.getElementById('lblabel').textContent=team;
+  document.getElementById('lb').classList.add('open');
+}
+document.getElementById('lbclose').addEventListener('click',function(){document.getElementById('lb').classList.remove('open');document.getElementById('lbimg').src='';});
+document.getElementById('lb').addEventListener('click',function(e){if(e.target===this){this.classList.remove('open');document.getElementById('lbimg').src='';}});
+document.addEventListener('keydown',function(e){if(e.key==='Escape')document.getElementById('lb').classList.remove('open');});
 
 // ── CONFETTI ──────────────────────────────────────────
 function confetti(n){
   var colors=['#00A651','#FFD700','#fff','#4DCC85','#FFB700','#C0C0C0','#CD7F32','#ff6b6b'];
-  for(var i=0;i<n;i++){
-    (function(){
-      var el=document.createElement('div');
-      el.className='cf';
-      var dur=(1.8+Math.random()*2.2).toFixed(2)+'s';
-      el.style.cssText=
-        'left:'+Math.random()*100+'vw;'+
-        'background:'+colors[Math.floor(Math.random()*colors.length)]+';'+
-        'width:'+(6+Math.random()*9)+'px;'+
-        'height:'+(6+Math.random()*9)+'px;'+
-        'animation-duration:'+dur+';'+
-        'animation-delay:'+(Math.random()*1.2).toFixed(2)+'s';
-      document.body.appendChild(el);
-      el.addEventListener('animationend',function(){el.parentNode&&el.parentNode.removeChild(el)});
-    })();
-  }
+  for(var i=0;i<n;i++){(function(){
+    var el=document.createElement('div');el.className='cf';
+    var dur=(1.8+Math.random()*2.2).toFixed(2)+'s';
+    el.style.cssText='left:'+Math.random()*100+'vw;background:'+colors[Math.floor(Math.random()*colors.length)]+';width:'+(6+Math.random()*9)+'px;height:'+(6+Math.random()*9)+'px;animation-duration:'+dur+';animation-delay:'+(Math.random()*1.2).toFixed(2)+'s';
+    document.body.appendChild(el);
+    el.addEventListener('animationend',function(){el.parentNode&&el.parentNode.removeChild(el);});
+  })();}
 }
 
 // ── BACKGROUND CANVAS ─────────────────────────────────
 (function(){
-  var cv = document.getElementById('bgc');
-  if(!cv) return;
-  var cx = cv.getContext('2d');
-  var W=0, H=0;
-
-  function resize(){
-    W = cv.width  = window.innerWidth;
-    H = cv.height = window.innerHeight;
-  }
-  resize();
-  window.addEventListener('resize', resize);
-
-  // beams estilo holofote
+  var cv=document.getElementById('bgc');if(!cv)return;
+  var cx=cv.getContext('2d'),W=0,H=0;
+  function resize(){W=cv.width=window.innerWidth;H=cv.height=window.innerHeight;}
+  resize();window.addEventListener('resize',resize);
   var beams=[];
-  for(var b=0;b<5;b++){
-    beams.push({
-      ox:(b+.5)/5,
-      angle:-Math.PI/2+(Math.random()-.5)*.55,
-      spd:(Math.random()-.5)*.0022,
-      alpha:.022+Math.random()*.022,
-      hw:.036+Math.random()*.03,
-      col:Math.random()>.5?'0,166,81':'210,155,20'
-    });
-  }
-
-  // partículas — criadas DEPOIS de resize()
+  for(var b=0;b<5;b++)beams.push({ox:(b+.5)/5,angle:-Math.PI/2+(Math.random()-.5)*.55,spd:(Math.random()-.5)*.0022,alpha:.022+Math.random()*.022,hw:.036+Math.random()*.03,col:Math.random()>.5?'0,166,81':'210,155,20'});
   var pts=[];
-  for(var p=0;p<100;p++){
-    pts.push({
-      x:Math.random()*W,
-      y:Math.random()*H,
-      r:Math.random()*1.5+.2,
-      vx:(Math.random()-.5)*.28,
-      vy:(Math.random()-.5)*.28,
-      alpha:Math.random()*.28+.04,
-      c:['0,166,81','210,155,20','255,255,255'][Math.floor(Math.random()*3)]
-    });
-  }
-
+  for(var p=0;p<100;p++)pts.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.5+.2,vx:(Math.random()-.5)*.28,vy:(Math.random()-.5)*.28,alpha:Math.random()*.28+.04,c:['0,166,81','210,155,20','255,255,255'][Math.floor(Math.random()*3)]});
   function draw(){
     cx.clearRect(0,0,W,H);
-
-    // beams
     for(var i=0;i<beams.length;i++){
-      var bm=beams[i];
-      bm.angle+=bm.spd;
-      var sx=bm.ox*W, hw=bm.hw*W;
-      var ex=sx+Math.tan(bm.angle)*H*1.4;
+      var bm=beams[i];bm.angle+=bm.spd;
+      var sx=bm.ox*W,hw=bm.hw*W,ex=sx+Math.tan(bm.angle)*H*1.4;
       var grad=cx.createLinearGradient(sx,H,ex,-H*.4);
       grad.addColorStop(0,'rgba('+bm.col+','+bm.alpha+')');
       grad.addColorStop(.55,'rgba('+bm.col+','+(bm.alpha*.35)+')');
       grad.addColorStop(1,'rgba(0,0,0,0)');
-      cx.save();
-      cx.beginPath();
-      cx.moveTo(sx-hw,H); cx.lineTo(sx+hw,H);
-      cx.lineTo(ex+hw,-H*.4); cx.lineTo(ex-hw,-H*.4);
-      cx.closePath();
-      cx.fillStyle=grad; cx.fill();
-      cx.restore();
+      cx.save();cx.beginPath();cx.moveTo(sx-hw,H);cx.lineTo(sx+hw,H);cx.lineTo(ex+hw,-H*.4);cx.lineTo(ex-hw,-H*.4);cx.closePath();cx.fillStyle=grad;cx.fill();cx.restore();
     }
-
-    // linhas entre partículas próximas
     for(var a=0;a<pts.length;a++){
       for(var b2=a+1;b2<pts.length;b2++){
-        var dx=pts[a].x-pts[b2].x, dy=pts[a].y-pts[b2].y;
-        var dist=Math.sqrt(dx*dx+dy*dy);
-        if(dist<90){
-          cx.beginPath();
-          cx.moveTo(pts[a].x,pts[a].y);
-          cx.lineTo(pts[b2].x,pts[b2].y);
-          cx.strokeStyle='rgba(0,166,81,'+(0.055*(1-dist/90))+')';
-          cx.lineWidth=.5; cx.stroke();
-        }
+        var dx=pts[a].x-pts[b2].x,dy=pts[a].y-pts[b2].y,dist=Math.sqrt(dx*dx+dy*dy);
+        if(dist<90){cx.beginPath();cx.moveTo(pts[a].x,pts[a].y);cx.lineTo(pts[b2].x,pts[b2].y);cx.strokeStyle='rgba(0,166,81,'+(0.055*(1-dist/90))+')';cx.lineWidth=.5;cx.stroke();}
       }
     }
-
-    // partículas
     for(var q=0;q<pts.length;q++){
       var pt=pts[q];
-      cx.beginPath();
-      cx.arc(pt.x,pt.y,pt.r,0,Math.PI*2);
-      cx.fillStyle='rgba('+pt.c+','+pt.alpha+')';
-      cx.fill();
-      pt.x+=pt.vx; pt.y+=pt.vy;
-      if(pt.x<0||pt.x>W) pt.vx*=-1;
-      if(pt.y<0||pt.y>H) pt.vy*=-1;
+      cx.beginPath();cx.arc(pt.x,pt.y,pt.r,0,Math.PI*2);cx.fillStyle='rgba('+pt.c+','+pt.alpha+')';cx.fill();
+      pt.x+=pt.vx;pt.y+=pt.vy;
+      if(pt.x<0||pt.x>W)pt.vx*=-1;if(pt.y<0||pt.y>H)pt.vy*=-1;
     }
     requestAnimationFrame(draw);
   }
   draw();
 })();
 
-// ── GALLERY ───────────────────────────────────────────
-function buildGallery(){
-  var strip = document.getElementById('galstrip');
-  TEAMS.forEach(function(t){
-    var m   = getMedal(t);
-    var href = LINKS[t.name] || '#';
-    var cls = m.card==='cg'?'gg': m.card==='cs'?'gs': m.card==='cb'?'gb':'';
-    var card = document.createElement('div');
-    card.className = 'gcard '+cls;
-    card.innerHTML =
-      '<div class="gico">'+m.badge+'</div>'+
-      '<div class="gname">'+t.name+'</div>'+
-      '<div class="gpts">'+t.score+'</div>'+
-      '<div class="gptslbl">pontos</div>'+
-      '<a class="gbtn" href="'+href+'" target="_blank" rel="noopener">📂 Ver Álbum</a>'+
-      '<div class="ghint">Fotos da equipe</div>';
-    strip.appendChild(card);
-  });
-
-  // drag to scroll
-  var isDown=false, startX=0, scrollLeft=0;
-  strip.addEventListener('mousedown',function(e){isDown=true;strip.style.cursor='grabbing';startX=e.pageX-strip.offsetLeft;scrollLeft=strip.scrollLeft});
-  strip.addEventListener('mouseleave',function(){isDown=false;strip.style.cursor='grab'});
-  strip.addEventListener('mouseup',function(){isDown=false;strip.style.cursor='grab'});
-  strip.addEventListener('mousemove',function(e){if(!isDown)return;e.preventDefault();var x=e.pageX-strip.offsetLeft;strip.scrollLeft=scrollLeft-(x-startX)*1.2});
-}
-
 // ── INIT ──────────────────────────────────────────────
-buildTicker();
-buildStats();
-buildLeader();
-buildCards();
-buildTable();
-buildGallery();
+buildTicker();buildStats();buildLeader();buildCards();buildTable();buildCarousel();buildGallery();
 setTimeout(function(){confetti(65);},700);
 setTimeout(function(){confetti(30);},3200);
 </script>
