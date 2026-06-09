@@ -166,26 +166,24 @@ body{background:var(--bg);color:var(--w);font-family:'Inter',sans-serif;min-heig
 .carcnt{text-align:right;font-size:10px;color:var(--gray);letter-spacing:2px;padding:4px 6px 0}
 /* GALLERY STRIP */
 .galsec{margin-top:52px}
-.galstrip{display:flex;gap:16px;overflow-x:auto;padding-bottom:18px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;cursor:grab;user-select:none}
-.galstrip::-webkit-scrollbar{height:4px}
-.galstrip::-webkit-scrollbar-track{background:rgba(255,255,255,.04);border-radius:4px}
-.galstrip::-webkit-scrollbar-thumb{background:var(--g3);border-radius:4px}
-.gcard{flex-shrink:0;width:200px;scroll-snap-align:start;background:var(--card);border:1px solid var(--brd);border-radius:14px;display:flex;flex-direction:column;align-items:center;text-align:center;overflow:hidden;transition:transform .35s,box-shadow .35s,border-color .35s;cursor:pointer}
-.gcard:hover{transform:translateY(-10px) scale(1.025);border-color:rgba(0,166,81,.35);box-shadow:0 22px 55px rgba(0,166,81,.16)}
-.gcard.gg{border-color:rgba(255,215,0,.22)}
-.gcard.gg:hover{border-color:rgba(255,215,0,.5);box-shadow:0 22px 55px rgba(255,215,0,.14)}
-.gcard.gs{border-color:rgba(200,200,200,.15)}
-.gcard.gs:hover{border-color:rgba(200,200,200,.4)}
-.gcard.gb{border-color:rgba(205,127,50,.18)}
-.gcard.gb:hover{border-color:rgba(205,127,50,.4)}
-.gthumb{width:100%;height:118px;object-fit:cover;display:block;background:#0a0e1a}
-.gthumb-ph{width:100%;height:118px;display:flex;align-items:center;justify-content:center;font-size:36px;background:linear-gradient(135deg,#0a0e1a,#111628)}
+.galstrip{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:16px}
+.gcard{background:var(--card);border:1px solid var(--brd);border-radius:16px;display:flex;flex-direction:column;align-items:center;text-align:center;padding:28px 16px 22px;gap:6px;transition:transform .3s,box-shadow .3s,border-color .3s;cursor:default}
+.gcard:hover{transform:translateY(-8px);box-shadow:0 20px 50px rgba(0,166,81,.15);border-color:rgba(0,166,81,.3)}
+.gcard.gg{background:linear-gradient(160deg,#1a1000,#120d00);border-color:rgba(255,215,0,.25)}
+.gcard.gg:hover{border-color:rgba(255,215,0,.55);box-shadow:0 20px 50px rgba(255,215,0,.14)}
+.gcard.gs{background:linear-gradient(160deg,#141a20,#0e1318);border-color:rgba(200,200,200,.18)}
+.gcard.gs:hover{border-color:rgba(200,200,200,.45)}
+.gcard.gb{background:linear-gradient(160deg,#160e06,#0f0804);border-color:rgba(205,127,50,.2)}
+.gcard.gb:hover{border-color:rgba(205,127,50,.45)}
+.gmedal-big{font-size:3.2rem;line-height:1;margin-bottom:4px}
+.gpos-tag{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.35);font-weight:600}
 .gbody{padding:14px 14px 12px;width:100%}
-.gname{font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:1.5px;line-height:1.2;color:var(--w);margin-bottom:3px}
+.gbody{display:flex;flex-direction:column;align-items:center;gap:6px;width:100%}
+.gname{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2px;line-height:1.2;color:var(--w)}
 .gcard.gg .gname{color:var(--gold)}
 .gcard.gs .gname{color:var(--sil)}
 .gcard.gb .gname{color:var(--bro)}
-.gpts{font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--g);line-height:1;margin-bottom:10px}
+.gpts{font-family:'Bebas Neue',sans-serif;font-size:26px;color:var(--g);line-height:1}
 .gcard.gg .gpts{color:var(--gold)}
 .gcard.gs .gpts{color:var(--sil)}
 .gcard.gb .gpts{color:var(--bro)}
@@ -573,37 +571,23 @@ function startAuto(){
   },4000);
 }
 
-// ── GALLERY STRIP ────────────────────────────────────
+// ── GALLERY GRID ─────────────────────────────────────
 function buildGallery(){
   var strip=document.getElementById('galstrip');
   TEAMS.forEach(function(t){
     var m=getMedal(t),href=LINKS[t.name]||'#';
-    var ids=PHOTOS[t.name]||[];
     var cls=m.card==='cg'?'gg':m.card==='cs'?'gs':m.card==='cb'?'gb':'';
     var card=document.createElement('div');
     card.className='gcard '+cls;
-    var id0=ids.length?ids[0]:'';
-    card.innerHTML='<div class="gbody"><div class="gname">'+t.name+'</div><div class="gpts">'+t.score+' pts</div><a class="gbtn" href="'+href+'" target="_blank" rel="noopener">📂 Ver Álbum</a></div>';
-    if(id0){
-      var gimg=document.createElement('img');
-      gimg.className='gthumb';gimg.alt=t.name;gimg.loading='lazy';
-      card.insertBefore(gimg,card.firstChild);
-      loadImg(gimg,id0,m.badge,function(el,badge){
-        el.style.display='none';
-        var ph=document.createElement('div');ph.className='gthumb-ph';ph.textContent=badge;
-        el.parentNode.insertBefore(ph,el);
-      });
-    }else{
-      var ph2=document.createElement('div');ph2.className='gthumb-ph';ph2.textContent=m.badge;
-      card.insertBefore(ph2,card.firstChild);
-    }
+    card.innerHTML='<div class="gmedal-big">'+m.badge+'</div>'
+      +'<div class="gpos-tag">#'+t.pos+'º lugar</div>'
+      +'<div class="gbody">'
+        +'<div class="gname">'+t.name+'</div>'
+        +'<div class="gpts">'+t.score+' pts</div>'
+        +(href!=='#'?'<a class="gbtn" href="'+href+'" target="_blank" rel="noopener">📂 Ver Álbum</a>':'')
+      +'</div>';
     strip.appendChild(card);
   });
-  var isDown=false,startX=0,scrollLeft=0;
-  strip.addEventListener('mousedown',function(e){isDown=true;strip.style.cursor='grabbing';startX=e.pageX-strip.offsetLeft;scrollLeft=strip.scrollLeft;});
-  strip.addEventListener('mouseleave',function(){isDown=false;strip.style.cursor='grab';});
-  strip.addEventListener('mouseup',function(){isDown=false;strip.style.cursor='grab';});
-  strip.addEventListener('mousemove',function(e){if(!isDown)return;e.preventDefault();strip.scrollLeft=scrollLeft-(e.pageX-strip.offsetLeft-startX)*1.2;});
 }
 
 // ── LIGHTBOX ──────────────────────────────────────────
