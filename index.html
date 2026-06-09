@@ -161,6 +161,17 @@ body{background:var(--bg);color:var(--w);font-family:'Inter',sans-serif;min-heig
 .trow.rb .tbarf{background:linear-gradient(90deg,#6b3600,var(--bro))}
 .tmed{text-align:right;font-size:19px}
 
+/* PHOTO NOTICE */
+.photonote{display:flex;align-items:center;gap:12px;background:rgba(0,166,81,.07);border:1px solid rgba(0,166,81,.18);border-radius:10px;padding:12px 18px;margin-bottom:14px;font-size:12px;color:rgba(255,255,255,.75);letter-spacing:.5px}
+.photonote span{font-size:20px;flex-shrink:0}
+.photonote b{color:var(--g2)}
+
+/* LINK EQUIPE */
+.tlink{color:inherit;text-decoration:none;display:inline-flex;align-items:center;gap:7px;transition:color .2s}
+.tlink:hover{color:var(--g2)}
+.tlink .cam{font-size:13px;opacity:.45;transition:opacity .2s,transform .2s}
+.tlink:hover .cam{opacity:1;transform:scale(1.2)}
+
 /* SEARCH */
 .srchw{margin-bottom:16px;position:relative}
 .srchi{width:100%;background:var(--card);border:1px solid var(--brd);border-radius:10px;padding:12px 18px 12px 44px;color:var(--w);font-size:13px;outline:none;font-family:'Inter',sans-serif;transition:border-color .2s,box-shadow .2s}
@@ -234,6 +245,10 @@ body{background:var(--bg);color:var(--w);font-family:'Inter',sans-serif;min-heig
 
   <!-- FULL RANKING -->
   <div class="seclbl">📋 Classificação Geral — Todos os Participantes</div>
+  <div class="photonote">
+    <span>📷</span>
+    <div>Clique no nome de qualquer equipe para <b>visualizar as fotos da filial</b> diretamente.</div>
+  </div>
   <div class="srchw">
     <span class="srchico">🔍</span>
     <input class="srchi" id="srch" type="text" placeholder="Buscar equipe...">
@@ -293,6 +308,33 @@ var SLOGANS = {
   "Comercial Salvador":"Bahia em Campo","Contabilidade Salvador":"Números da Bahia",
   "Jurídico Salvador":"Direito Baiano","Pernambuco":"Nordeste com Garra",
   "Piraúba":"Zona da Mata Presente"
+};
+
+// links de fotos por equipe (aguardando URLs definitivas)
+var LINKS = {
+  "Campinas":               "#",
+  "Comercial RJ":           "#",
+  "Adm. e Copa SP":         "#",
+  "Ribeirão Preto":         "#",
+  "Belo Horizonte":         "#",
+  "TI Rio de Janeiro":      "#",
+  "CID Imobiliário RJ":     "#",
+  "Joinville":              "#",
+  "Jurídico Curitiba":      "#",
+  "Arquivo e Auditoria RJ": "#",
+  "Manaus":                 "#",
+  "Recepção e Copa RJ":     "#",
+  "Comercial SP":           "#",
+  "Jur. Tributário RJ":     "#",
+  "Jur. Trabalhista RJ":    "#",
+  "Jurídico SP":            "#",
+  "Contab. e TI SP":        "#",
+  "Espírito Santo":         "#",
+  "Comercial Salvador":     "#",
+  "Contabilidade Salvador": "#",
+  "Jurídico Salvador":      "#",
+  "Pernambuco":             "#",
+  "Piraúba":                "#"
 };
 
 // ordena
@@ -423,9 +465,10 @@ function buildTable(filter){
     var row = document.createElement('div');
     row.className='trow '+m.rc;
     row.style.cssText='opacity:0;transform:translateX(-16px);transition:opacity .35s,transform .35s';
+    var href = LINKS[t.name] || '#';
     row.innerHTML=
       '<div class="tpos '+m.pc+'">'+t.pos+'</div>'+
-      '<div class="tname">'+m.badge+' '+t.name+'</div>'+
+      '<div class="tname"><a class="tlink" href="'+href+'" target="_blank" rel="noopener">'+m.badge+' '+t.name+' <span class="cam">📷</span></a></div>'+
       '<div class="tpts">'+t.score+'</div>'+
       '<div class="tbarw"><div class="tbarf"></div></div>'+
       '<div class="tmed">'+m.badge+'</div>';
