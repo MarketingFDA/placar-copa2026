@@ -62,6 +62,11 @@ body{background:var(--bg);color:var(--w);font-family:'Inter',sans-serif;min-heig
 .lpts{font-family:'Bebas Neue',sans-serif;font-size:74px;line-height:1;color:var(--gold);animation:pglow 2.5s ease-in-out infinite alternate}
 @keyframes pglow{0%{text-shadow:0 0 28px rgba(255,215,0,.5)}100%{text-shadow:0 0 70px rgba(255,215,0,1),0 0 110px rgba(255,215,0,.35)}}
 .lbadge{font-size:46px;animation:bbounce .8s ease-in-out infinite alternate}
+.prize-notice{display:flex;align-items:center;gap:16px;background:linear-gradient(135deg,#1a1000,#2e1e00);border:1px solid rgba(255,215,0,.35);border-radius:14px;padding:18px 26px;margin-bottom:42px;box-shadow:0 4px 30px rgba(255,215,0,.1)}
+.prize-trophies{font-size:26px;letter-spacing:2px;flex-shrink:0}
+.prize-text{flex:1}
+.prize-title{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;color:var(--gold);margin-bottom:3px}
+.prize-desc{font-size:12px;color:rgba(255,255,255,.65);line-height:1.5;letter-spacing:.3px}
 @keyframes bbounce{0%{transform:scale(1) rotate(-5deg)}100%{transform:scale(1.15) rotate(5deg)}}
 .seclbl{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:5px;color:var(--g);margin:0 0 18px;display:flex;align-items:center;gap:14px;text-shadow:0 0 18px rgba(0,166,81,.35)}
 .seclbl::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,rgba(0,166,81,.45),transparent)}
@@ -246,6 +251,14 @@ body{background:var(--bg);color:var(--w);font-family:'Inter',sans-serif;min-heig
     </div>
     <div class="lpts" id="lpts">&#8212;</div>
     <div class="lbadge">&#129351;</div>
+  </div>
+  <div class="prize-notice">
+    <div class="prize-trophies">&#129351;&#129352;&#129353;</div>
+    <div class="prize-text">
+      <div class="prize-title">Recompensa para os 3 Primeiros</div>
+      <div class="prize-desc">As 3 equipes que liderarem a classificacao ao final da 1&#170; Dinamica serao premiadas. Mantenham o desempenho ate o encerramento!</div>
+    </div>
+    <div style="font-size:28px">&#127881;</div>
   </div>
   <div class="seclbl">&#127942; Top 6 &#8212; Destaques da Din&#226;mica</div>
   <div class="grid" id="topgrid"></div>
