@@ -308,7 +308,7 @@ var RAW = [
   {name:"Campinas",               score:120},
   {name:"Comercial RJ",           score:114},
   {name:"Adm. e Copa SP",         score:114},
-  {name:"Ribeão Preto",      score:112},
+  {name:"Ribeirão Preto",      score:112},
   {name:"Belo Horizonte",         score:110},
   {name:"TI Rio de Janeiro",      score:105},
   {name:"CID Imobiliário RJ",score:103},
@@ -332,7 +332,7 @@ var RAW = [
 
 var SLOGANS = {
   "Campinas":"Campeões da 1ª Dinâmica","Comercial RJ":"Força no Campo de Vendas",
-  "Adm. e Copa SP":"Eficiência em Campo","Ribeão Preto":"Precisão e Determinação",
+  "Adm. e Copa SP":"Eficiência em Campo","Ribeirão Preto":"Precisão e Determinação",
   "Belo Horizonte":"Estratégia Mineira","TI Rio de Janeiro":"Inovação em Campo",
   "CID Imobiliário RJ":"Garra Imobiliária","Joinville":"Sul com Determinação",
   "Jurídico Curitiba":"Direito à Vitória","Arquivo e Auditoria RJ":"Ordem e Resultado",
@@ -349,7 +349,7 @@ var PHOTOS = {
   "Campinas":["1RaDbRY5Ipbb8wbe8p4tnx66ZmSy26uyN","11yOAcxCzeZfy8IPTfh4LMo3pf0ZG-axn"],
   "Comercial RJ":["1LcqbTTuyNi4yeDSHqysMG4FS0mD7s3xQ","16MEsaWNYT5bdec3pZ303RHysbWkaXuxY","16dCNiAPs4bwoSyPLQsgwveAT5evIKJuP"],
   "Adm. e Copa SP":["14vQWladMW32PC8uPR5YN8Gexc6Hzzv","1K5t7dTcRROR44T4MorRwi4a8xeLRYN","1ZTJtKFZoV0AYaKAyW7RjD7FbAMpoda","13dUvRgAZ0u4M1fbFP8k88Q8n5FhHXf5s"],
-  "Ribeão Preto":["1X2oRv-DopD5VTsPxFZWehMQ7UGJWRCv"],
+  "Ribeirão Preto":["1X2oRv-DopD5VTsPxFZWehMQ7UGJWRCv"],
   "Belo Horizonte":["1z8Fy28GU2aCaoIZjIBadKGfv6UBrUfG6","11qViNQAXuyV4xFIjI8v1D78YcQYHzD5X","1Yzot-nUu9Fi-T7pwm1RZmu3QqhmFl1D"],
   "TI Rio de Janeiro":["16bRzGt5gzQXeXfKNz1jHArQTXRCcRav","1ko7uYcBRZK1fTWz9QuYUQXsXUSZmBM5Z","1KYqfKdK9o97HhODtxxA5TjwD8SJWQPA","1yiizq6nTfJ6Vc3pNsLsbjwub7p9kuIz8","1I180zcxGVOBJ43yDW5d1PqptipWvX7c","1fvBXfGhMPtX4DNMxTyvLntarN5ixoC5w","1wMYpi-CkELdhe5yTUk704Nl6wOzz5tE","1vtYDFgwxI2UgANvaNwWERPAU7998ZcX-"],
   "CID Imobiliário RJ":["1whyxwN3zmcSPtYVibYlJQO1RbcbrfkNT"],
@@ -375,7 +375,7 @@ var LINKS = {
   "Campinas":"https://drive.google.com/drive/folders/1lug56PHvdKVzTY7N2z5rZRRCMzVv16i?usp=drivelink",
   "Comercial RJ":"https://drive.google.com/drive/folders/1w18CfwpYXcEgKjdqpMS6ty2pqqxwd0c?usp=drivelink",
   "Adm. e Copa SP":"https://drive.google.com/drive/folders/1nUkvkzJjTWDx5tDLygC4LaTvtKyFYBIP?usp=drive_link",
-  "Ribeão Preto":"https://drive.google.com/drive/folders/1GaMiKc5Qb-dUUuRyeyUKZK723rRmjO?usp=drive_link",
+  "Ribeirão Preto":"https://drive.google.com/drive/folders/1GaMiKc5Qb-dUUuRyeyUKZK723rRmjO?usp=drive_link",
   "Belo Horizonte":"https://drive.google.com/drive/folders/1nI5UAend19TVzvKambjYMZRPdaX5ZFRt?usp=drive_link",
   "TI Rio de Janeiro":"https://drive.google.com/drive/folders/1lOF1FdXtf3deavybyREkpK6j95-OPbnb?usp=drive_link",
   "CID Imobiliário RJ":"https://drive.google.com/drive/folders/1OrT7nkZiZVtFB8yjvIVS3C9DllaM28v?usp=drivelink",
@@ -397,25 +397,27 @@ var LINKS = {
   "Piraúba":"https://drive.google.com/drive/folders/1dPZN5DHOTh2qSOouAW84U7yYXPko3aOd?usp=drive_link"
 };
 
-var URLS=[
-  function(id){return 'https://drive.google.com/thumbnail?id='+id+'&sz=w600';},
-  function(id){return 'https://lh3.googleusercontent.com/d/'+id+'=w800';},
-  function(id){return 'https://drive.google.com/uc?export=view&id='+id;}
-];
-function imgUrl(id){return URLS[0](id);}
+function imgUrl(id){return 'https://drive.google.com/thumbnail?id='+id+'&sz=w600';}
 function imgFull(id){return 'https://drive.google.com/uc?export=view&id='+id;}
 
 function loadImg(el, id, badge, onFail){
-  var attempt=0;
+  var srcs=[
+    'https://drive.google.com/thumbnail?id='+id+'&sz=w600',
+    'https://lh3.googleusercontent.com/d/'+id+'=w800',
+    'https://drive.google.com/uc?export=view&id='+id
+  ];
+  var i=0;
   function tryNext(){
-    if(attempt>=URLS.length){onFail(el,badge);return;}
-    el.src=URLS[attempt++](id);
+    if(i>=srcs.length){onFail(el,badge);return;}
+    var src=srcs[i++];
+    var t=new Image();
+    t.onload=function(){
+      if(t.naturalWidth<8||t.naturalHeight<8){tryNext();}
+      else{el.src=src;}
+    };
+    t.onerror=function(){tryNext();};
+    t.src=src;
   }
-  function checkLoad(){
-    if(el.naturalWidth<8||el.naturalHeight<8){tryNext();}
-  }
-  el.addEventListener('error',tryNext);
-  el.addEventListener('load',checkLoad);
   tryNext();
 }
 
