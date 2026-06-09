@@ -397,13 +397,26 @@ var LINKS = {
   "Piraúba":"https://drive.google.com/drive/folders/1dPZN5DHOTh2qSOouAW84U7yYXPko3aOd?usp=drive_link"
 };
 
-function imgUrl(id){return 'https://drive.google.com/thumbnail?id='+id+'&sz=w600';}
+var URLS=[
+  function(id){return 'https://drive.google.com/thumbnail?id='+id+'&sz=w600';},
+  function(id){return 'https://lh3.googleusercontent.com/d/'+id+'=w800';},
+  function(id){return 'https://drive.google.com/uc?export=view&id='+id;}
+];
+function imgUrl(id){return URLS[0](id);}
 function imgFull(id){return 'https://drive.google.com/uc?export=view&id='+id;}
-function imgFallback(el,id,badge){
-  var t=parseInt(el.dataset.t||'0');
-  if(t===0){el.dataset.t='1';el.src='https://lh3.googleusercontent.com/d/'+id+'=w800';}
-  else if(t===1){el.dataset.t='2';el.src='https://drive.google.com/uc?export=view&id='+id;}
-  else{el.style.display='none';var ph=document.createElement('div');ph.className='gthumb-ph';ph.textContent=badge;el.parentNode.insertBefore(ph,el);}
+
+function loadImg(el, id, badge, onFail){
+  var attempt=0;
+  function tryNext(){
+    if(attempt>=URLS.length){onFail(el,badge);return;}
+    el.src=URLS[attempt++](id);
+  }
+  function checkLoad(){
+    if(el.naturalWidth<8||el.naturalHeight<8){tryNext();}
+  }
+  el.addEventListener('error',tryNext);
+  el.addEventListener('load',checkLoad);
+  tryNext();
 }
 
 var TEAMS=RAW.slice().sort(function(a,b){return b.score-a.score});
@@ -514,11 +527,16 @@ function buildCarousel(){
   ALL_SLIDES.forEach(function(s,i){
     var slide=document.createElement('div');
     slide.className='carslide';
-    slide.innerHTML='<img src="'+imgUrl(s.id)+'" alt="'+s.team+'" loading="lazy" onerror="var _t=parseInt(this.dataset.t||\'0\');if(_t===0){this.dataset.t=\'1\';this.src=\'https://lh3.googleusercontent.com/d/'+s.id+'=w800\';}else if(_t===1){this.dataset.t=\'2\';this.src=\'https://drive.google.com/uc?export=view&id='+s.id+'\';}else{this.style.display=\'none\';}">'
-      +'<div class="caroverlay">'
-        +'<div><div class="carteam">'+s.medal+' '+s.team+'</div></div>'
-        +'<div class="carptsw"><div class="carpts">'+s.score+'</div><div class="carptslbl">pontos</div></div>'
-      +'</div>';
+    var cimg=document.createElement('img');
+    cimg.alt=s.team;
+    cimg.loading='lazy';
+    loadImg(cimg,s.id,s.medal,function(el){el.style.display='none';});
+    slide.appendChild(cimg);
+    var overlay=document.createElement('div');
+    overlay.className='caroverlay';
+    overlay.innerHTML='<div><div class="carteam">'+s.medal+' '+s.team+'</div></div>'
+      +'<div class="carptsw"><div class="carpts">'+s.score+'</div><div class="carptslbl">pontos</div></div>';
+    slide.appendChild(overlay);
     slide.addEventListener('click',function(){openLightbox(s.id,s.team);});
     track.appendChild(slide);
     var dot=document.createElement('div');
@@ -563,8 +581,20 @@ function buildGallery(){
     var card=document.createElement('div');
     card.className='gcard '+cls;
     var id0=ids.length?ids[0]:'';
-    var thumb=id0?'<img class="gthumb" src="'+imgUrl(id0)+'" alt="'+t.name+'" loading="lazy" onerror="imgFallback(this,\''+id0+'\',\''+m.badge+'\')">':'<div class="gthumb-ph">'+m.badge+'</div>';
-    card.innerHTML=thumb+'<div class="gbody"><div class="gname">'+t.name+'</div><div class="gpts">'+t.score+' pts</div><a class="gbtn" href="'+href+'" target="_blank" rel="noopener">📂 Ver Álbum</a></div>';
+    card.innerHTML='<div class="gbody"><div class="gname">'+t.name+'</div><div class="gpts">'+t.score+' pts</div><a class="gbtn" href="'+href+'" target="_blank" rel="noopener">📂 Ver Álbum</a></div>';
+    if(id0){
+      var gimg=document.createElement('img');
+      gimg.className='gthumb';gimg.alt=t.name;gimg.loading='lazy';
+      card.insertBefore(gimg,card.firstChild);
+      loadImg(gimg,id0,m.badge,function(el,badge){
+        el.style.display='none';
+        var ph=document.createElement('div');ph.className='gthumb-ph';ph.textContent=badge;
+        el.parentNode.insertBefore(ph,el);
+      });
+    }else{
+      var ph2=document.createElement('div');ph2.className='gthumb-ph';ph2.textContent=m.badge;
+      card.insertBefore(ph2,card.firstChild);
+    }
     strip.appendChild(card);
   });
   var isDown=false,startX=0,scrollLeft=0;
