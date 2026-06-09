@@ -399,6 +399,17 @@ var LINKS = {
 
 function imgUrl(id){return 'https://lh3.googleusercontent.com/d/'+id+'=w800';}
 function imgFull(id){return 'https://lh3.googleusercontent.com/d/'+id+'=w1600';}
+function imgFallback(el,id,badge){
+  var t=parseInt(el.dataset.t||'0');
+  if(t===0){el.dataset.t='1';el.src='https://drive.google.com/thumbnail?id='+id+'&sz=w400';}
+  else if(t===1){el.dataset.t='2';el.src='https://drive.google.com/uc?export=view&id='+id;}
+  else{
+    el.style.display='none';
+    var ph=document.createElement('div');
+    ph.className='gthumb-ph';ph.textContent=badge;
+    el.parentNode.insertBefore(ph,el);
+  }
+}
 
 var TEAMS=RAW.slice().sort(function(a,b){return b.score-a.score});
 var MAX=TEAMS[0].score;
@@ -508,7 +519,7 @@ function buildCarousel(){
   ALL_SLIDES.forEach(function(s,i){
     var slide=document.createElement('div');
     slide.className='carslide';
-    slide.innerHTML='<img src="'+imgUrl(s.id)+'" alt="'+s.team+'" loading="lazy" onerror="this.style.display=\'none\'">'
+    slide.innerHTML='<img src="'+imgUrl(s.id)+'" alt="'+s.team+'" loading="lazy" onerror="var t=parseInt(this.dataset.t||\'0\');if(t===0){this.dataset.t=\'1\';this.src=\'https://drive.google.com/thumbnail?id='+s.id+'&sz=w800\';}else if(t===1){this.dataset.t=\'2\';this.src=\'https://drive.google.com/uc?export=view&id='+s.id+'\';}else{this.style.display=\'none\';}">'
       +'<div class="caroverlay">'
         +'<div><div class="carteam">'+s.medal+' '+s.team+'</div></div>'
         +'<div class="carptsw"><div class="carpts">'+s.score+'</div><div class="carptslbl">pontos</div></div>'
@@ -556,7 +567,8 @@ function buildGallery(){
     var cls=m.card==='cg'?'gg':m.card==='cs'?'gs':m.card==='cb'?'gb':'';
     var card=document.createElement('div');
     card.className='gcard '+cls;
-    var thumb=ids.length?'<img class="gthumb" src="'+imgUrl(ids[0])+'" alt="'+t.name+'" loading="lazy" onerror="this.parentNode.innerHTML=\'<div class=&quot;gthumb-ph&quot;>'+m.badge+'</div>\'">':'<div class="gthumb-ph">'+m.badge+'</div>';
+    var id0=ids.length?ids[0]:'';
+    var thumb=id0?'<img class="gthumb" src="'+imgUrl(id0)+'" alt="'+t.name+'" loading="lazy" onerror="imgFallback(this,\''+id0+'\',\''+m.badge+'\')">':'<div class="gthumb-ph">'+m.badge+'</div>';
     card.innerHTML=thumb+'<div class="gbody"><div class="gname">'+t.name+'</div><div class="gpts">'+t.score+' pts</div><a class="gbtn" href="'+href+'" target="_blank" rel="noopener">📂 Ver Álbum</a></div>';
     strip.appendChild(card);
   });
