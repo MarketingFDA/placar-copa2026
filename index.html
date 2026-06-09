@@ -179,6 +179,41 @@ body{background:var(--bg);color:var(--w);font-family:'Inter',sans-serif;min-heig
 .srchi::placeholder{color:var(--gray)}
 .srchico{position:absolute;left:15px;top:50%;transform:translateY(-50%);font-size:15px;opacity:.38;pointer-events:none}
 
+/* GALLERY */
+.galsec{margin-top:60px}
+.galstrip{display:flex;gap:16px;overflow-x:auto;padding-bottom:18px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;cursor:grab;user-select:none}
+.galstrip::-webkit-scrollbar{height:4px}
+.galstrip::-webkit-scrollbar-track{background:rgba(255,255,255,.04);border-radius:4px}
+.galstrip::-webkit-scrollbar-thumb{background:var(--g3);border-radius:4px}
+.gcard{flex-shrink:0;width:210px;scroll-snap-align:start;background:var(--card);border:1px solid var(--brd);border-radius:16px;padding:22px 18px 18px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;transition:transform .35s,box-shadow .35s,border-color .35s;position:relative;overflow:hidden;cursor:pointer}
+.gcard::before{content:'';position:absolute;inset:0;border-radius:16px;background:radial-gradient(circle at 50% 0%,rgba(0,166,81,.07),transparent 65%);opacity:0;transition:opacity .35s}
+.gcard:hover{transform:translateY(-10px) scale(1.025);border-color:rgba(0,166,81,.35);box-shadow:0 22px 55px rgba(0,166,81,.16)}
+.gcard:hover::before{opacity:1}
+.gcard.gg{background:linear-gradient(150deg,#0f0c02,#18130a);border-color:rgba(255,215,0,.18)}
+.gcard.gg:hover{border-color:rgba(255,215,0,.45);box-shadow:0 22px 55px rgba(255,215,0,.14)}
+.gcard.gs{border-color:rgba(200,200,200,.12)}
+.gcard.gs:hover{border-color:rgba(200,200,200,.35)}
+.gcard.gb{border-color:rgba(205,127,50,.15)}
+.gcard.gb:hover{border-color:rgba(205,127,50,.35)}
+.gico{font-size:36px;animation:gicobounce 3s ease-in-out infinite alternate}
+@keyframes gicobounce{0%{transform:translateY(0) scale(1)}100%{transform:translateY(-6px) scale(1.1)}}
+.gname{font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:1.5px;line-height:1.2;color:var(--w)}
+.gcard.gg .gname{color:var(--gold)}
+.gcard.gs .gname{color:var(--sil)}
+.gcard.gb .gname{color:var(--bro)}
+.gpts{font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--g);line-height:1}
+.gcard.gg .gpts{color:var(--gold)}
+.gcard.gs .gpts{color:var(--sil)}
+.gcard.gb .gpts{color:var(--bro)}
+.gptslbl{font-size:9px;color:var(--gray);letter-spacing:2px;text-transform:uppercase;margin-top:-6px}
+.gbtn{display:inline-flex;align-items:center;gap:7px;background:rgba(0,166,81,.1);border:1px solid rgba(0,166,81,.25);color:var(--g2);font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:8px 16px;border-radius:40px;text-decoration:none;margin-top:4px;transition:background .2s,border-color .2s,color .2s,transform .2s}
+.gbtn:hover{background:rgba(0,166,81,.22);border-color:var(--g);color:#fff;transform:scale(1.06)}
+.gcard.gg .gbtn{background:rgba(255,215,0,.08);border-color:rgba(255,215,0,.3);color:var(--gold)}
+.gcard.gg .gbtn:hover{background:rgba(255,215,0,.2);border-color:var(--gold);color:#fff}
+.gcard.gs .gbtn{background:rgba(200,200,200,.07);border-color:rgba(200,200,200,.25);color:var(--sil)}
+.gcard.gb .gbtn{background:rgba(205,127,50,.08);border-color:rgba(205,127,50,.25);color:var(--bro)}
+.ghint{font-size:10px;color:var(--gray);letter-spacing:1px;margin-top:2px;opacity:.6}
+
 /* CONFETTI */
 .cf{position:fixed;top:-12px;pointer-events:none;z-index:9999;border-radius:2px;animation:cfall linear forwards}
 @keyframes cfall{to{transform:translateY(110vh) rotate(720deg);opacity:0}}
@@ -263,6 +298,15 @@ body{background:var(--bg);color:var(--w);font-family:'Inter',sans-serif;min-heig
     <div id="fulltbl"></div>
   </div>
 
+  <!-- GALLERY -->
+  <div class="galsec">
+    <div class="seclbl">📸 Álbum da 1ª Dinâmica — Fotos por Equipe</div>
+    <div class="galstrip" id="galstrip"></div>
+    <div style="text-align:center;font-size:11px;color:var(--gray);letter-spacing:2px;margin-top:10px;opacity:.55">
+      ← arraste para navegar · clique para abrir o álbum →
+    </div>
+  </div>
+
 </div>
 
 <div class="footer"><span class="pdot"></span>1ª Dinâmica · Resultado Oficial · FIFA World Cup 2026 Style</div>
@@ -310,31 +354,31 @@ var SLOGANS = {
   "Piraúba":"Zona da Mata Presente"
 };
 
-// links de fotos por equipe (aguardando URLs definitivas)
+// links das pastas de fotos por equipe (Google Drive)
 var LINKS = {
-  "Campinas":               "#",
-  "Comercial RJ":           "#",
-  "Adm. e Copa SP":         "#",
-  "Ribeirão Preto":         "#",
-  "Belo Horizonte":         "#",
-  "TI Rio de Janeiro":      "#",
-  "CID Imobiliário RJ":     "#",
-  "Joinville":              "#",
-  "Jurídico Curitiba":      "#",
-  "Arquivo e Auditoria RJ": "#",
-  "Manaus":                 "#",
-  "Recepção e Copa RJ":     "#",
-  "Comercial SP":           "#",
-  "Jur. Tributário RJ":     "#",
-  "Jur. Trabalhista RJ":    "#",
-  "Jurídico SP":            "#",
-  "Contab. e TI SP":        "#",
-  "Espírito Santo":         "#",
-  "Comercial Salvador":     "#",
-  "Contabilidade Salvador": "#",
-  "Jurídico Salvador":      "#",
-  "Pernambuco":             "#",
-  "Piraúba":                "#"
+  "Campinas":               "https://drive.google.com/drive/folders/1lug56PHvdKVzTY7N2z5rZRRCMzVv16i?usp=drivelink",
+  "Comercial RJ":           "https://drive.google.com/drive/folders/1w18CfwpYXcEgKjdqpMS6ty2pqqxwd0c?usp=drivelink",
+  "Adm. e Copa SP":         "https://drive.google.com/drive/folders/1nUkvkzJjTWDx5tDLygC4LaTvtKyFYBIP?usp=drive_link",
+  "Ribeirão Preto":         "https://drive.google.com/drive/folders/1GaMiKc5Qb-dUUuRyeyUKZK723rRmjO?usp=drive_link",
+  "Belo Horizonte":         "https://drive.google.com/drive/folders/1nI5UAend19TVzvKambjYMZRPdaX5ZFRt?usp=drive_link",
+  "TI Rio de Janeiro":      "https://drive.google.com/drive/folders/1lOF1FdXtf3deavybyREkpK6j95-OPbnb?usp=drive_link",
+  "CID Imobiliário RJ":     "https://drive.google.com/drive/folders/1OrT7nkZiZVtFB8yjvIVS3C9DllaM28v?usp=drivelink",
+  "Joinville":              "https://drive.google.com/drive/folders/1RnBKsrd2xJUnBoGcXea73OH9EMVCU2k?usp=drivelink",
+  "Jurídico Curitiba":      "https://drive.google.com/drive/folders/1E4KWXXU6EqkGi-C6OrpWTQe8KmvKzywb?usp=drive_link",
+  "Arquivo e Auditoria RJ": "https://drive.google.com/drive/folders/1NO1iOCxI0PYj1IUht25UFLYR2q73AqV?usp=drivelink",
+  "Manaus":                 "https://drive.google.com/drive/folders/10jVi-QBD_lHprtlYpYGNU2J3USaV2Ptw?usp=sharing",
+  "Recepção e Copa RJ":     "https://drive.google.com/drive/folders/1NnCHcZcXqHaINOt6eTT1bNzd4G7x-2uP?usp=drive_link",
+  "Comercial SP":           "https://drive.google.com/drive/folders/1ffeavXVxMZI7P6hbtoIZUNRyusW6pXe?usp=drivelink",
+  "Jur. Tributário RJ":     "https://drive.google.com/drive/folders/1wAN8byoAFaM92DRdiiiMPY0guyqEcoR?usp=drivelink",
+  "Jur. Trabalhista RJ":    "https://drive.google.com/drive/folders/1EwP3a-EeBk3FGDaqddIduzEiM-5ZdL4k?usp=drive_link",
+  "Jurídico SP":            "https://drive.google.com/drive/folders/1iYwSq4QXnut94MXUeCJD9tepRELND7Pf?usp=sharing",
+  "Contab. e TI SP":        "https://drive.google.com/drive/folders/1R3tAmAYneue-xLQbnxoHZe4touHj-c3m?usp=drive_link",
+  "Espírito Santo":         "https://drive.google.com/drive/folders/1iS5xdu5avAO6Z8nq7aWbVo9OlCcXB?usp=drivelink",
+  "Comercial Salvador":     "https://drive.google.com/drive/folders/1vMSbRaVcfi3q8OaEEg8QO4S2jUWWZF?usp=sharing",
+  "Contabilidade Salvador": "https://drive.google.com/drive/folders/1vMSbRaVcfi3q8OaEEg8QO4S2jUWWZF?usp=sharing",
+  "Jurídico Salvador":      "https://drive.google.com/drive/folders/1vMSbRaVcfi3q8OaEEg8QO4S2jUWWZF?usp=sharing",
+  "Pernambuco":             "https://drive.google.com/drive/folders/1Yev8frnhx7bfltUvnYqE-vaRTQHTVJnG?usp=drive_link",
+  "Piraúba":                "https://drive.google.com/drive/folders/1dPZN5DHOTh2qSOouAW84U7yYXPko3aOd?usp=drive_link"
 };
 
 // ordena
@@ -601,12 +645,40 @@ function confetti(n){
   draw();
 })();
 
+// ── GALLERY ───────────────────────────────────────────
+function buildGallery(){
+  var strip = document.getElementById('galstrip');
+  TEAMS.forEach(function(t){
+    var m   = getMedal(t);
+    var href = LINKS[t.name] || '#';
+    var cls = m.card==='cg'?'gg': m.card==='cs'?'gs': m.card==='cb'?'gb':'';
+    var card = document.createElement('div');
+    card.className = 'gcard '+cls;
+    card.innerHTML =
+      '<div class="gico">'+m.badge+'</div>'+
+      '<div class="gname">'+t.name+'</div>'+
+      '<div class="gpts">'+t.score+'</div>'+
+      '<div class="gptslbl">pontos</div>'+
+      '<a class="gbtn" href="'+href+'" target="_blank" rel="noopener">📂 Ver Álbum</a>'+
+      '<div class="ghint">Fotos da equipe</div>';
+    strip.appendChild(card);
+  });
+
+  // drag to scroll
+  var isDown=false, startX=0, scrollLeft=0;
+  strip.addEventListener('mousedown',function(e){isDown=true;strip.style.cursor='grabbing';startX=e.pageX-strip.offsetLeft;scrollLeft=strip.scrollLeft});
+  strip.addEventListener('mouseleave',function(){isDown=false;strip.style.cursor='grab'});
+  strip.addEventListener('mouseup',function(){isDown=false;strip.style.cursor='grab'});
+  strip.addEventListener('mousemove',function(e){if(!isDown)return;e.preventDefault();var x=e.pageX-strip.offsetLeft;strip.scrollLeft=scrollLeft-(x-startX)*1.2});
+}
+
 // ── INIT ──────────────────────────────────────────────
 buildTicker();
 buildStats();
 buildLeader();
 buildCards();
 buildTable();
+buildGallery();
 setTimeout(function(){confetti(65);},700);
 setTimeout(function(){confetti(30);},3200);
 </script>
