@@ -136,7 +136,19 @@ body{background:var(--bg);color:var(--w);font-family:'Inter',sans-serif;min-heig
 .trow.rg .tbarf{background:linear-gradient(90deg,#7a4e00,var(--gold))}
 .trow.rs .tbarf{background:linear-gradient(90deg,#555,var(--sil))}
 .trow.rb .tbarf{background:linear-gradient(90deg,#6b3600,var(--bro))}
-.tmed{text-align:right;font-size:19px}
+.tmed{text-align:right;font-size:19px;white-space:nowrap}
+.tchev{font-size:10px;opacity:.35;margin-left:3px;display:inline-block;transition:transform .25s;vertical-align:middle}
+.trow.xp{cursor:pointer}
+.trow.xp:hover .tchev{opacity:.7}
+.trow.xp.on .tchev{transform:rotate(180deg);opacity:.8}
+.tcrit{display:none;padding:10px 26px 16px 90px;background:rgba(0,166,81,.03);border-bottom:1px solid rgba(255,255,255,.03)}
+.tcrit.on{display:block}
+.tcrit-inner{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.tci{text-align:center}
+.tcilbl{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:4px}
+.tcival{font-family:'Bebas Neue',sans-serif;font-size:26px;line-height:1}
+.tcibar{height:3px;background:rgba(255,255,255,.07);border-radius:2px;margin-top:5px}
+.tcibarf{height:100%;border-radius:2px;transition:width .8s ease}
 .photonote{display:flex;align-items:center;gap:12px;background:rgba(0,166,81,.07);border:1px solid rgba(0,166,81,.18);border-radius:10px;padding:12px 18px;margin-bottom:14px;font-size:12px;color:rgba(255,255,255,.75);letter-spacing:.5px}
 .photonote span{font-size:20px;flex-shrink:0}
 .photonote b{color:var(--g2)}
@@ -263,6 +275,10 @@ body{background:var(--bg);color:var(--w);font-family:'Inter',sans-serif;min-heig
   <div class="seclbl">&#127942; Top 6 &#8212; Destaques da Din&#226;mica</div>
   <div class="grid" id="topgrid"></div>
   <div class="seclbl">&#128203; Classifica&#231;&#227;o Geral &#8212; Todos os Participantes</div>
+  <div class="photonote" style="background:rgba(102,153,255,.07);border-color:rgba(102,153,255,.2);margin-bottom:8px">
+    <span>&#128202;</span>
+    <div>Clique em qualquer linha para ver os <b>crit&#233;rios detalhados</b>: Criatividade, Organiza&#231;&#227;o, Tema e Participa&#231;&#227;o.</div>
+  </div>
   <div class="photonote">
     <span>&#128247;</span>
     <div>Clique no nome de qualquer equipe para <b>visualizar as fotos da filial</b> diretamente.</div>
@@ -411,6 +427,32 @@ var LINKS = {
   "Piraúba":"https://drive.google.com/drive/folders/1dPZN5DHOTh2qSOouAW84U7yYXPko3aOd?usp=drive_link"
 };
 
+var CRITERIA={
+  "Contab. e TI SP":        {c:15,o:16,t:18,p:11},
+  "Jurídico SP":            {c:18,o:13,t:18,p:12},
+  "Jur. Trabalhista RJ":    {c:19,o:12,t:18,p:12},
+  "Manaus":                 {c:20,o:16,t:30,p:30},
+  "Comercial Salvador":     {c:11,o:12,t:12,p:9},
+  "Contabilidade Salvador": {c:11,o:12,t:12,p:9},
+  "Jurídico Curitiba":      {c:23,o:24,t:26,p:24},
+  "Ribeirão Preto":         {c:30,o:30,t:30,p:22},
+  "Arquivo e Auditoria RJ": {c:24,o:24,t:30,p:18},
+  "Jurídico Salvador":      {c:11,o:12,t:12,p:9},
+  "Belo Horizonte":         {c:21,o:30,t:29,p:30},
+  "Campinas":               {c:30,o:30,t:30,p:30},
+  "Espírito Santo":         {c:6, o:9, t:15,p:26},
+  "Piraúba":                {c:6, o:6, t:15,p:6},
+  "Pernambuco":             {c:6, o:6, t:18,p:6},
+  "Comercial RJ":           {c:30,o:30,t:30,p:24},
+  "Recepção e Copa RJ":     {c:30,o:18,t:27,p:17},
+  "TI Rio de Janeiro":      {c:30,o:28,t:29,p:27},
+  "Jur. Tributário RJ":     {c:18,o:12,t:18,p:18},
+  "CID Imobiliário RJ":     {c:30,o:20,t:23,p:30},
+  "Joinville":              {c:24,o:28,t:29,p:18},
+  "Adm. e Copa SP":         {c:30,o:30,t:30,p:24},
+  "Comercial SP":           {c:17,o:10,t:18,p:29}
+};
+
 function imgUrl(id){return 'https://drive.google.com/thumbnail?id='+id+'&sz=w600';}
 function imgFull(id){return 'https://drive.google.com/uc?export=view&id='+id;}
 
@@ -516,11 +558,46 @@ function buildTable(filter){
   var list=filter?TEAMS.filter(function(t){return t.name.toLowerCase().indexOf(filter.toLowerCase())>-1;}):TEAMS;
   list.forEach(function(t,i){
     var m=getMedal(t),pct=Math.round(t.score/MAX*100),href=LINKS[t.name]||'#';
+    var crit=CRITERIA[t.name]||null;
     var row=document.createElement('div');
-    row.className='trow '+m.rc;
+    row.className='trow '+m.rc+(crit?' xp':'');
     row.style.cssText='opacity:0;transform:translateX(-16px);transition:opacity .35s,transform .35s';
-    row.innerHTML='<div class="tpos '+m.pc+'">'+t.pos+'</div><div class="tname"><a class="tlink" href="'+href+'" target="_blank" rel="noopener">'+m.badge+' '+t.name+' <span class="cam">📷</span></a></div><div class="tpts">'+t.score+'</div><div class="tbarw"><div class="tbarf"></div></div><div class="tmed">'+m.badge+'</div>';
+    row.innerHTML='<div class="tpos '+m.pc+'">'+t.pos+'</div>'
+      +'<div class="tname"><a class="tlink" href="'+href+'" target="_blank" rel="noopener">'+m.badge+' '+t.name+' <span class="cam">&#128247;</span></a></div>'
+      +'<div class="tpts">'+t.score+'</div>'
+      +'<div class="tbarw"><div class="tbarf"></div></div>'
+      +'<div class="tmed">'+m.badge+(crit?'<span class="tchev">&#9660;</span>':'')+'</div>';
     tbl.appendChild(row);
+    if(crit){
+      var detail=document.createElement('div');
+      detail.className='tcrit';
+      var cols=[
+        {lbl:'Criatividade',val:crit.c,color:'#e6b830'},
+        {lbl:'Organiza&#231;&#227;o',val:crit.o,color:'#4DCC85'},
+        {lbl:'Tema',val:crit.t,color:'#6699ff'},
+        {lbl:'Participa&#231;&#227;o',val:crit.p,color:'#ff8866'}
+      ];
+      var inner='<div class="tcrit-inner">';
+      cols.forEach(function(col){
+        var w=Math.round(col.val/30*100);
+        inner+='<div class="tci">'
+          +'<div class="tcilbl">'+col.lbl+'</div>'
+          +'<div class="tcival" style="color:'+col.color+'">'+col.val+'</div>'
+          +'<div class="tcibar"><div class="tcibarf" style="width:0;background:'+col.color+'" data-w="'+w+'%"></div></div>'
+          +'</div>';
+      });
+      inner+='</div>';
+      detail.innerHTML=inner;
+      tbl.appendChild(detail);
+      row.addEventListener('click',function(e){
+        if(e.target.tagName==='A'||e.target.closest('a'))return;
+        var isOpen=detail.classList.toggle('on');
+        row.classList.toggle('on',isOpen);
+        if(isOpen){
+          detail.querySelectorAll('.tcibarf').forEach(function(b){b.style.width=b.dataset.w;});
+        }
+      });
+    }
     setTimeout(function(){row.style.opacity='1';row.style.transform='translateX(0)';row.querySelector('.tbarf').style.width=pct+'%';},50+i*32);
   });
 }
