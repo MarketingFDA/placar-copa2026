@@ -333,7 +333,7 @@ body{background:var(--bg);color:var(--w);font-family:'Inter',sans-serif;min-heig
 <script>
 var RAW = [
   {name:"Campinas",               score:120},
-  {name:"Comercial RJ",           score:119},
+  {name:"Comercial RJ",           score:120},
   {name:"Adm. e Copa SP",         score:114},
   {name:"Ribeirão Preto",      score:112},
   {name:"Belo Horizonte",         score:110},
@@ -443,7 +443,7 @@ var CRITERIA={
   "Espírito Santo":         {c:6, o:9, t:15,p:26},
   "Piraúba":                {c:6, o:6, t:15,p:6},
   "Pernambuco":             {c:6, o:6, t:18,p:6},
-  "Comercial RJ":           {c:30,o:30,t:30,p:29},
+  "Comercial RJ":           {c:30,o:30,t:30,p:30},
   "Recepção e Copa RJ":     {c:30,o:18,t:27,p:17},
   "TI Rio de Janeiro":      {c:30,o:28,t:29,p:27},
   "Jur. Tributário RJ":     {c:18,o:12,t:18,p:18},
@@ -479,10 +479,8 @@ function loadImg(el, id, badge, onFail){
 
 var TEAMS=RAW.slice().sort(function(a,b){return b.score-a.score});
 var MAX=TEAMS[0].score;
-var pos=1;
 for(var i=0;i<TEAMS.length;i++){
-  if(i>0&&TEAMS[i].score<TEAMS[i-1].score)pos=i+1;
-  TEAMS[i].pos=pos;
+  TEAMS[i].pos=i+1;
 }
 var S_GOLD=TEAMS[0].score;
 var S_SILVER=(function(){for(var i=0;i<TEAMS.length;i++)if(TEAMS[i].score<S_GOLD)return TEAMS[i].score;return -1;})();
