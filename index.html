@@ -530,10 +530,10 @@ var CS_SILVER=(function(){for(var i=0;i<CSORTED.length;i++)if(CSORTED[i].total<C
 var CS_BRONZE=(function(){for(var i=0;i<CSORTED.length;i++)if(CSORTED[i].total<CS_SILVER)return CSORTED[i].total;return -1;})();
 
 function getCMedal(t){
-  if(t.total===CS_GOLD)  return{card:"cg",chip:"\U0001f947 OURO",  badge:"\U0001f947",pc:"pg",rc:"rg"};
-  if(t.total===CS_SILVER)return{card:"cs",chip:"\U0001f948 PRATA", badge:"\U0001f948",pc:"ps",rc:"rs"};
-  if(t.total===CS_BRONZE)return{card:"cb",chip:"\U0001f949 BRONZE",badge:"\U0001f949",pc:"pb",rc:"rb"};
-  return{card:"",chip:"#"+t.cpos+"º LUGAR",badge:"\U0001f3c5",pc:"",rc:""};
+  if(t.total===CS_GOLD)  return{card:"cg",chip:"🥇 OURO",  badge:"🥇",pc:"pg",rc:"rg"};
+  if(t.total===CS_SILVER)return{card:"cs",chip:"🥈 PRATA", badge:"🥈",pc:"ps",rc:"rs"};
+  if(t.total===CS_BRONZE)return{card:"cb",chip:"🥉 BRONZE",badge:"🥉",pc:"pb",rc:"rb"};
+  return{card:"",chip:"#"+t.cpos+"º LUGAR",badge:"🏅",pc:"",rc:""};
 }
 
 function buildCombinedTable(){
