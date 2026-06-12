@@ -278,8 +278,14 @@ body{background:var(--bg);color:var(--w);font-family:'Inter',sans-serif;min-heig
     </div>
     <div style="font-size:28px">&#127881;</div>
   </div>
-  <div class="seclbl">&#127942; Top 6 &#8212; Destaques da Din&#226;mica</div>
+  <div class="seclbl">&#127942; Top 6 &#8212; L&#237;deres Acumulados</div>
   <div class="grid" id="topgrid"></div>
+  <div class="seclbl">&#127942; Classifica&#231;&#227;o Acumulada &#8212; Pontos Totais</div>
+  <div class="photonote" style="background:rgba(255,215,0,.04);border-color:rgba(255,215,0,.18);margin-bottom:8px">
+    <span>&#127942;</span>
+    <div>Classifica&#231;&#227;o <b style="color:#FFD700">oficial e acumulada</b>. Esta tabela &#233; a que vale para o pr&#234;mio final. Os pontos de cada din&#226;mica ficam registrados abaixo como hist&#243;rico.</div>
+  </div>
+  <div id="cmbtable" style="margin-bottom:52px"></div>
   <div class="seclbl">&#128203; 1&#170; Din&#226;mica &#8212; Classifica&#231;&#227;o Geral</div>
   <div class="photonote" style="background:rgba(102,153,255,.07);border-color:rgba(102,153,255,.2);margin-bottom:8px">
     <span>&#128202;</span>
@@ -471,6 +477,102 @@ var CRITERIA={
   "Comercial SP":           {c:17,o:10,t:18,p:29}
 };
 
+// ── COMBINED SCOREBOARD DATA ─────────────────────────────
+var COMBINED = [
+  {name:"Campinas",               d1:120, d2:100, total:220},
+  {name:"Comercial RJ",           d1:120, d2:100, total:220},
+  {name:"Adm. e Copa SP",         d1:114, d2:100, total:214},
+  {name:"Belo Horizonte",         d1:110, d2:100, total:210},
+  {name:"TI Rio de Janeiro",      d1:105, d2:95,  total:200},
+  {name:"Joinville",              d1:99,  d2:100, total:199},
+  {name:"CID Imobiliário RJ",d1:103, d2:93,  total:196},
+  {name:"Arquivo e Auditoria RJ", d1:96,  d2:100, total:196},
+  {name:"Manaus",                 d1:96,  d2:100, total:196},
+  {name:"Recepção e Copa RJ",d1:92,d2:95,total:187},
+  {name:"Comercial SP",           d1:84,  d2:97,  total:181},
+  {name:"Jurídico Curitiba", d1:97,  d2:70,  total:167},
+  {name:"Jur. Tributário RJ",d1:66,  d2:99,  total:165},
+  {name:"Civil / Dir. Empresarial",d1:66, d2:97,  total:163},
+  {name:"Jur. Trabalhista RJ",    d1:61,  d2:100, total:161},
+  {name:"Contab. e TI SP",        d1:60,  d2:97,  total:157},
+  {name:"Contabilidade Salvador", d1:44,  d2:95,  total:139},
+  {name:"Comercial Salvador",     d1:44,  d2:90,  total:134},
+  {name:"Pernambuco",             d1:36,  d2:95,  total:131},
+  {name:"Piraúba",           d1:33,  d2:95,  total:128},
+  {name:"Ribeirão Preto",    d1:112, d2:0,   total:112},
+  {name:"Jurídico SP",       d1:61,  d2:0,   total:61},
+  {name:"Espírito Santo",    d1:56,  d2:0,   total:56},
+  {name:"Jurídico Salvador", d1:44,  d2:0,   total:44},
+  {name:"Adm RJ",                 d1:0,   d2:100, total:100},
+  {name:"Contábil RJ",       d1:0,   d2:100, total:100},
+  {name:"Cobrança RJ",       d1:0,   d2:100, total:100},
+  {name:"Jurídico + ADM PR", d1:0,   d2:100, total:100},
+  {name:"CID ADM RJ",             d1:0,   d2:100, total:100},
+  {name:"Facilite ADM RJ",        d1:0,   d2:100, total:100},
+  {name:"Jurídico BA",       d1:0,   d2:100, total:100},
+  {name:"DP RJ",                  d1:0,   d2:95,  total:95},
+  {name:"Comercial Curitiba",     d1:0,   d2:90,  total:90},
+  {name:"Jurídico RP",       d1:0,   d2:89,  total:89},
+  {name:"Desenvolvimento RJ",     d1:0,   d2:85,  total:85},
+  {name:"Jurídico PU",       d1:0,   d2:79,  total:79},
+  {name:"Tributário SP",     d1:0,   d2:78,  total:78},
+  {name:"Jurídico BH",       d1:0,   d2:60,  total:60}
+];
+
+var CSORTED=COMBINED.slice().sort(function(a,b){
+  if(b.total!==a.total)return b.total-a.total;
+  return a.name.localeCompare(b.name,'pt');
+});
+var CMAX=CSORTED[0].total;
+(function(){var p=1;CSORTED.forEach(function(t,i){if(i>0&&t.total<CSORTED[i-1].total)p=i+1;t.cpos=p;});})();
+var CS_GOLD=CSORTED[0].total;
+var CS_SILVER=(function(){for(var i=0;i<CSORTED.length;i++)if(CSORTED[i].total<CS_GOLD)return CSORTED[i].total;return -1;})();
+var CS_BRONZE=(function(){for(var i=0;i<CSORTED.length;i++)if(CSORTED[i].total<CS_SILVER)return CSORTED[i].total;return -1;})();
+
+function getCMedal(t){
+  if(t.total===CS_GOLD)  return{card:"cg",chip:"\U0001f947 OURO",  badge:"\U0001f947",pc:"pg",rc:"rg"};
+  if(t.total===CS_SILVER)return{card:"cs",chip:"\U0001f948 PRATA", badge:"\U0001f948",pc:"ps",rc:"rs"};
+  if(t.total===CS_BRONZE)return{card:"cb",chip:"\U0001f949 BRONZE",badge:"\U0001f949",pc:"pb",rc:"rb"};
+  return{card:"",chip:"#"+t.cpos+"º LUGAR",badge:"\U0001f3c5",pc:"",rc:""};
+}
+
+function buildCombinedTable(){
+  var container=document.getElementById('cmbtable');
+  if(!container)return;
+  var wrap=document.createElement('div');
+  wrap.className='twrap';
+  var thead=document.createElement('div');
+  thead.className='thead';
+  thead.style.gridTemplateColumns='60px 1fr 80px 80px 100px 80px';
+  thead.innerHTML='<span>Pos</span><span>Equipe</span>'
+    +'<span style="text-align:center">1ª Din</span>'
+    +'<span style="text-align:center">2ª Din</span>'
+    +'<span style="text-align:center">Total</span>'
+    +'<span></span>';
+  wrap.appendChild(thead);
+  CSORTED.forEach(function(t,i){
+    var m=getCMedal(t),pct=Math.round(t.total/CMAX*100);
+    var row=document.createElement('div');
+    row.className='trow '+m.rc;
+    row.style.cssText='grid-template-columns:60px 1fr 80px 80px 100px 80px;opacity:0;transform:translateX(-16px);transition:opacity .35s,transform .35s';
+    var d1s=t.d1>0?'<b style="color:var(--w)">'+t.d1+'</b>':'<span style="opacity:.28">&mdash;</span>';
+    var d2s=t.d2>0?'<b style="color:var(--g2)">'+t.d2+'</b>':'<span style="opacity:.28">&mdash;</span>';
+    row.innerHTML='<div class="tpos '+m.pc+'">'+t.cpos+'</div>'
+      +'<div class="tname">'+m.badge+' '+t.name+'</div>'
+      +'<div style="text-align:center;font-size:13px">'+d1s+'</div>'
+      +'<div style="text-align:center;font-size:13px">'+d2s+'</div>'
+      +'<div class="tpts">'+t.total+'</div>'
+      +'<div class="tbarw"><div class="tbarf"></div></div>';
+    wrap.appendChild(row);
+    setTimeout(function(){
+      row.style.opacity='1';row.style.transform='translateX(0)';
+      row.querySelector('.tbarf').style.width=pct+'%';
+    },50+i*26);
+  });
+  container.appendChild(wrap);
+}
+
+
 function imgUrl(id){return 'https://drive.google.com/thumbnail?id='+id+'&sz=w600';}
 function imgFull(id){return 'https://drive.google.com/uc?export=view&id='+id;}
 
@@ -534,10 +636,10 @@ function buildTicker(){
 
 function buildStats(){
   var el=document.getElementById('stats');
-  var total=TEAMS.reduce(function(s,t){return s+t.score},0);
-  var avg=Math.round(total/TEAMS.length);
-  var above=TEAMS.filter(function(t){return t.score>=100}).length;
-  [{num:TEAMS.length,lbl:"Equipes"},{num:total,lbl:"Pontos totais"},{num:MAX,lbl:"Maior pontuação"},{num:avg,lbl:"Média geral"},{num:TEAMS[TEAMS.length-1].score,lbl:"Menor pontuação"},{num:above,lbl:"Acima de 100 pts"}].forEach(function(s){
+  var total=CSORTED.reduce(function(s,t){return s+t.total},0);
+  var avg=Math.round(total/CSORTED.length);
+  var above=CSORTED.filter(function(t){return t.total>=100}).length;
+  [{num:CSORTED.length,lbl:"Equipes"},{num:total,lbl:"Pontos totais"},{num:CMAX,lbl:"Maior pontuação"},{num:avg,lbl:"Média geral"},{num:CSORTED[CSORTED.length-1].total,lbl:"Menor pontuação"},{num:above,lbl:"Acima de 100 pts"}].forEach(function(s){
     var d=document.createElement('div');
     d.className='sc';
     d.innerHTML='<div class="sc-num">0</div><div class="sc-lbl">'+s.lbl+'</div>';
@@ -547,22 +649,22 @@ function buildStats(){
 }
 
 function buildLeader(){
-  document.getElementById('lname').textContent=TEAMS[0].name;
-  countUp(document.getElementById('lpts'),TEAMS[0].score,2000);
+  document.getElementById('lname').textContent=CSORTED[0].name;
+  countUp(document.getElementById('lpts'),CSORTED[0].total,2000);
 }
 
 function buildCards(){
   var grid=document.getElementById('topgrid');
-  TEAMS.slice(0,6).forEach(function(t,idx){
-    var m=getMedal(t),pct=Math.round(t.score/MAX*100),sl=SLOGANS[t.name]||'Em Campo pela Vitória';
+  CSORTED.slice(0,6).forEach(function(t,idx){
+    var m=getCMedal(t),pct=Math.round(t.total/CMAX*100),sl=SLOGANS[t.name]||'Em Campo pela Vitória';
     var card=document.createElement('div');
     card.className='card '+m.card;
     card.style.cssText='opacity:0;transform:translateY(28px);transition:opacity .5s,transform .5s';
-    card.innerHTML='<div class="ch"><span class="chip">'+m.chip+'</span><span class="cmedal">'+m.badge+'</span></div><div class="cname">'+t.name+'</div><div class="cslogan">'+sl+'</div><div class="srow"><div class="snum">0</div><div class="slbl">PTS</div></div><div class="pbar"><div class="pbhdr"><span>Desempenho</span><span>'+pct+'%</span></div><div class="pbtrack"><div class="pbfill"></div></div></div>';
+    card.innerHTML='<div class="ch"><span class="chip">'+m.chip+'</span><span class="cmedal">'+m.badge+'</span></div><div class="cname">'+t.name+'</div><div class="cslogan">'+sl+'</div><div class="srow"><div class="snum">0</div><div class="slbl">PTS ACUM</div></div><div class="pbar"><div class="pbhdr"><span>Desempenho</span><span>'+pct+'%</span></div><div class="pbtrack"><div class="pbfill"></div></div></div>';
     grid.appendChild(card);
     setTimeout(function(){
       card.style.opacity='1';card.style.transform='translateY(0)';
-      countUp(card.querySelector('.snum'),t.score,1500+idx*80);
+      countUp(card.querySelector('.snum'),t.total,1500+idx*80);
       setTimeout(function(){card.querySelector('.pbfill').style.width=pct+'%';},500);
     },180+idx*110);
   });
@@ -872,7 +974,7 @@ function buildQuiz2(){
   }, 350);
 }
 
-buildTicker();buildStats();buildLeader();buildCards();buildTable();buildCarousel();buildGallery();buildQuiz2();
+buildTicker();buildStats();buildLeader();buildCards();buildCombinedTable();buildTable();buildCarousel();buildGallery();buildQuiz2();
 setTimeout(function(){confetti(65);},700);
 setTimeout(function(){confetti(30);},3200);
 </script>
