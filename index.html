@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Copa 2026 — 1ª Dinâmica</title>
+<title>Copa 2026 — Championship</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700;900&display=swap');
 :root{
@@ -248,7 +248,13 @@ body{background:var(--bg);color:var(--w);font-family:'Inter',sans-serif;min-heig
 <div class="wrap">
   <div class="hdr">
     <div class="livebadge"><div class="ldot"></div>AO VIVO</div>
-    <div style="margin-bottom:12px"><span class="dintag">&#127885; 1&#170; Din&#226;mica &#8212; Resultado Oficial</span></div>
+    <div style="margin-bottom:12px"><span class="dintag">&#9889; Copa 2026 &#8212; Em Andamento</span></div>
+    <div style="display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:10px">
+      <span style="background:rgba(0,166,81,.18);border:1px solid rgba(0,166,81,.4);color:#4DCC85;font-size:10px;font-weight:800;letter-spacing:2px;padding:5px 16px;border-radius:40px">&#10003; 1&#170; DIN&#194;MICA</span>
+      <span style="background:rgba(255,215,0,.15);border:1px solid rgba(255,215,0,.4);color:#FFD700;font-size:10px;font-weight:800;letter-spacing:2px;padding:5px 16px;border-radius:40px">&#10003; 2&#170; DIN&#194;MICA</span>
+      <span style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);color:#4a5266;font-size:10px;font-weight:700;letter-spacing:2px;padding:5px 16px;border-radius:40px">3&#170; DIN&#194;MICA</span>
+      <span style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);color:#4a5266;font-size:10px;font-weight:700;letter-spacing:2px;padding:5px 16px;border-radius:40px">4&#170; DIN&#194;MICA</span>
+    </div>
     <div class="htitle">COPA 2026</div>
     <div class="hsub">Championship</div>
     <div class="hdesc">Placar de Desempenho por Equipe</div>
@@ -258,7 +264,7 @@ body{background:var(--bg);color:var(--w);font-family:'Inter',sans-serif;min-heig
   <div class="leader">
     <div class="lcrown">&#128081;</div>
     <div class="linfo">
-      <div class="llbl">L&#237;der da 1&#170; Din&#226;mica</div>
+      <div class="llbl">L&#237;der &#8212; 1&#170; Din&#226;mica</div>
       <div class="lname" id="lname">&#8212;</div>
     </div>
     <div class="lpts" id="lpts">&#8212;</div>
@@ -274,7 +280,7 @@ body{background:var(--bg);color:var(--w);font-family:'Inter',sans-serif;min-heig
   </div>
   <div class="seclbl">&#127942; Top 6 &#8212; Destaques da Din&#226;mica</div>
   <div class="grid" id="topgrid"></div>
-  <div class="seclbl">&#128203; Classifica&#231;&#227;o Geral &#8212; Todos os Participantes</div>
+  <div class="seclbl">&#128203; 1&#170; Din&#226;mica &#8212; Classifica&#231;&#227;o Geral</div>
   <div class="photonote" style="background:rgba(102,153,255,.07);border-color:rgba(102,153,255,.2);margin-bottom:8px">
     <span>&#128202;</span>
     <div>Clique em qualquer linha para ver os <b>crit&#233;rios detalhados</b>: Criatividade, Organiza&#231;&#227;o, Tema e Participa&#231;&#227;o.</div>
@@ -295,6 +301,18 @@ body{background:var(--bg);color:var(--w);font-family:'Inter',sans-serif;min-heig
       <span></span>
     </div>
     <div id="fulltbl"></div>
+  </div>
+
+  <!-- 2ND DYNAMIC QUIZ RESULTS -->
+  <div id="din2sec" style="margin-top:64px">
+    <div class="seclbl">&#9889; 2&#170; Din&#226;mica &#8212; Resultado Quiz</div>
+    <div class="photonote" style="border-color:rgba(255,215,0,.22);background:rgba(255,215,0,.05);margin-bottom:28px">
+      <span>&#127919;</span>
+      <div>
+        <b style="color:#FFD700">Din&#226;mica Quiz</b> &#8212; Diferente da 1&#170; Din&#226;mica, que possu&#237;a crit&#233;rios de vota&#231;&#227;o, a 2&#170; Din&#226;mica &#233; um <b style="color:#4DCC85">quiz de resposta certa ou errada</b>. N&#227;o h&#225; crit&#233;rios subjetivos &#8212; apenas <b>acertos</b> e <b>erros</b> contam.
+      </div>
+    </div>
+    <div id="q2container"></div>
   </div>
 
   <!-- CAROUSEL -->
@@ -328,7 +346,7 @@ body{background:var(--bg);color:var(--w);font-family:'Inter',sans-serif;min-heig
   </div>
 </div>
 
-<div class="footer"><span class="pdot"></span>1&#170; Din&#226;mica &#183; Resultado Oficial &#183; FIFA World Cup 2026 Style</div>
+<div class="footer"><span class="pdot"></span>Copa 2026 &#183; 2&#170; Din&#226;mica Conclu&#237;da &#183; Rumo &#224; 4&#170; Din&#226;mica</div>
 
 <script>
 var RAW = [
@@ -742,7 +760,119 @@ function confetti(n){
 })();
 
 // ── INIT ──────────────────────────────────────────────
-buildTicker();buildStats();buildLeader();buildCards();buildTable();buildCarousel();buildGallery();
+
+// ── 2ND DYNAMIC DATA ─────────────────────────────────
+var Q2GROUPS = [
+  {
+    group: "Grupo Principal",
+    icon: "&#127914;",
+    teams: [
+      {setor:"Comercial",              filial:"Rio de Janeiro", pts:100},
+      {setor:"&mdash;",                filial:"Manaus",         pts:100},
+      {setor:"Arquivo e Auditoria",    filial:"Rio de Janeiro", pts:100},
+      {setor:"Adm",                    filial:"Rio de Janeiro", pts:100},
+      {setor:"Contábil",          filial:"Rio de Janeiro", pts:100},
+      {setor:"&mdash;",                filial:"Joinville",      pts:100},
+      {setor:"Cobrança",          filial:"Rio de Janeiro", pts:100},
+      {setor:"Administrativo e Copa",  filial:"São Paulo", pts:100},
+      {setor:"&mdash;",                filial:"Belo Horizonte", pts:100},
+      {setor:"&mdash;",                filial:"Campinas",       pts:100},
+      {setor:"Contabilidade e TI",     filial:"São Paulo", pts:97},
+      {setor:"Comercial",              filial:"São Paulo", pts:97},
+      {setor:"Recepção e Copa", filial:"Rio de Janeiro", pts:95},
+      {setor:"&mdash;",                filial:"Piraúba",   pts:95},
+      {setor:"TI",                     filial:"Rio de Janeiro", pts:95},
+      {setor:"DP",                     filial:"Rio de Janeiro", pts:95},
+      {setor:"Contábil",          filial:"Salvador",       pts:95},
+      {setor:"&mdash;",                filial:"Pernambuco",     pts:95},
+      {setor:"Imobiliário",       filial:"Rio de Janeiro", pts:93},
+      {setor:"Comercial",              filial:"Curitiba",       pts:90},
+      {setor:"Comercial",              filial:"Salvador",       pts:90},
+      {setor:"Desenvolvimento",        filial:"Rio de Janeiro", pts:85},
+      {setor:"Jurídico",          filial:"Curitiba",       pts:70}
+    ]
+  },
+  {
+    group: "Advocacia",
+    icon: "&#9878;&#65039;",
+    teams: [
+      {setor:"Jurídico + ADM",    filial:"PR",             pts:100},
+      {setor:"Jurídico",          filial:"BA",             pts:100},
+      {setor:"Trabalhista",            filial:"RJ",             pts:100},
+      {setor:"Tributário",        filial:"RJ",             pts:99},
+      {setor:"Cível",             filial:"RJ",             pts:97},
+      {setor:"Jurídico",          filial:"RP",             pts:89},
+      {setor:"Jurídico",          filial:"PU",             pts:79},
+      {setor:"Tributário",        filial:"SP",             pts:78},
+      {setor:"Jurídico",          filial:"BH",             pts:60}
+    ]
+  },
+  {
+    group: "CID",
+    icon: "&#127970;",
+    teams: [
+      {setor:"ADM", filial:"RJ", pts:100}
+    ]
+  },
+  {
+    group: "Facilite",
+    icon: "&#10003;&#65039;",
+    teams: [
+      {setor:"ADM", filial:"RJ", pts:100}
+    ]
+  }
+];
+
+function buildQuiz2(){
+  var container = document.getElementById('q2container');
+  if(!container) return;
+  var fullHtml = '';
+
+  Q2GROUPS.forEach(function(g){
+    var sorted = g.teams.slice().sort(function(a,b){return b.pts-a.pts;});
+    var MAX2 = sorted[0].pts;
+    var gh = '<div style="margin-bottom:44px">'
+      + '<div style="font-size:12px;font-weight:800;color:var(--gold);letter-spacing:3px;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:10px">'
+      + '<span>' + g.icon + '</span><span>' + g.group + '</span>'
+      + '<span style="flex:1;height:1px;background:linear-gradient(90deg,rgba(255,215,0,.3),transparent);display:inline-block;margin-left:6px"></span>'
+      + '</div>'
+      + '<div class="twrap">'
+      + '<div class="thead" style="grid-template-columns:52px 1fr 1fr 72px 80px">'
+      + '<span>Pos</span><span>Setor</span><span>Filial</span><span style="text-align:center">Pts</span><span></span>'
+      + '</div><div>';
+    var pos = 1;
+    sorted.forEach(function(t, i){
+      if(i > 0 && t.pts < sorted[i-1].pts) pos = i + 1;
+      var pct = Math.round(t.pts / MAX2 * 100);
+      var sc = t.pts === 100 ? 'var(--gold)' : t.pts >= 95 ? 'var(--g2)' : t.pts >= 80 ? 'var(--w)' : 'var(--gray)';
+      gh += '<div class="trow q2row" style="grid-template-columns:52px 1fr 1fr 72px 80px;opacity:0;transform:translateX(-12px)">'
+        + '<div class="tpos">' + pos + '</div>'
+        + '<div style="font-weight:600;font-size:12px">' + t.setor + '</div>'
+        + '<div style="font-size:12px;color:var(--gray)">' + t.filial + '</div>'
+        + '<div class="tpts" style="color:' + sc + ';font-size:20px">' + t.pts + '</div>'
+        + '<div class="tbarw" data-pct="' + pct + '"><div class="tbarf"></div></div>'
+        + '</div>';
+    });
+    gh += '</div></div></div>';
+    fullHtml += gh;
+  });
+
+  container.innerHTML = fullHtml;
+  setTimeout(function(){
+    var rows = document.querySelectorAll('.q2row');
+    rows.forEach(function(row, i){
+      setTimeout(function(){
+        row.style.transition = 'opacity .35s, transform .35s';
+        row.style.opacity = '1';
+        row.style.transform = 'translateX(0)';
+        var bw = row.querySelector('.tbarw');
+        if(bw) row.querySelector('.tbarf').style.width = bw.dataset.pct + '%';
+      }, 50 + i * 22);
+    });
+  }, 350);
+}
+
+buildTicker();buildStats();buildLeader();buildCards();buildTable();buildCarousel();buildGallery();buildQuiz2();
 setTimeout(function(){confetti(65);},700);
 setTimeout(function(){confetti(30);},3200);
 </script>
