@@ -224,6 +224,44 @@ body{background:var(--bg);color:var(--w);font-family:'Inter',sans-serif;min-heig
 .lbclose:hover{background:var(--red)}
 .lblabel{position:absolute;bottom:-32px;left:0;right:0;text-align:center;font-size:12px;color:rgba(255,255,255,.5);letter-spacing:2px}
 
+/* 3A DINAMICA SECTION */
+.d3sec{margin:0 auto 56px;max-width:1100px;padding:0 16px}
+.d3intro{text-align:center;font-size:13px;color:var(--gray);letter-spacing:1px;margin-bottom:32px;line-height:1.8}
+.d3grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:24px}
+.d3card{background:linear-gradient(150deg,#0a1a10,#0d2015,#0a1a10);border:1px solid rgba(0,166,81,.25);
+  border-radius:18px;overflow:hidden;transition:transform .3s,box-shadow .3s;cursor:pointer}
+.d3card:hover{transform:translateY(-4px);box-shadow:0 16px 60px rgba(0,166,81,.2),0 0 0 1px rgba(0,166,81,.4)}
+.d3card-hdr{padding:16px 18px 12px;display:flex;align-items:center;gap:12px;border-bottom:1px solid rgba(255,255,255,.05)}
+.d3card-icon{font-size:28px}
+.d3card-name{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;color:var(--g2)}
+.d3card-count{margin-left:auto;font-size:10px;color:var(--gray);letter-spacing:1px;background:rgba(0,166,81,.1);
+  border:1px solid rgba(0,166,81,.2);border-radius:20px;padding:3px 10px}
+.d3thumbs{display:grid;gap:3px;padding:3px}
+.d3thumbs.n1{grid-template-columns:1fr}
+.d3thumbs.n2{grid-template-columns:1fr 1fr}
+.d3thumbs.n3{grid-template-columns:1fr 1fr 1fr}
+.d3thumbs.n4{grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr}
+.d3thumbs.nmore{grid-template-columns:1fr 1fr 1fr;grid-template-rows:auto}
+.d3thumb{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;transition:filter .2s}
+.d3thumb:hover{filter:brightness(1.1)}
+.d3video{width:100%;aspect-ratio:4/3;object-fit:cover;display:block}
+.d3more{position:relative}
+.d3more-overlay{position:absolute;inset:0;background:rgba(0,0,0,.55);display:flex;align-items:center;
+  justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:22px;color:#fff;letter-spacing:2px}
+.d3card-footer{padding:10px 18px;font-size:10px;color:rgba(255,255,255,.35);letter-spacing:1.5px;
+  display:flex;align-items:center;gap:6px}
+/* LIGHTBOX 3D */
+.lb3{position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:9990;display:none;align-items:center;justify-content:center}
+.lb3.open{display:flex}
+.lb3inner{position:relative;max-width:95vw;max-height:95vh;display:flex;flex-direction:column;align-items:center;gap:12px}
+.lb3media{max-width:90vw;max-height:80vh;display:flex;align-items:center;justify-content:center}
+.lb3media img,.lb3media video{max-width:90vw;max-height:78vh;object-fit:contain;border-radius:10px}
+.lb3nav{display:flex;align-items:center;gap:20px}
+.lb3arr{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:50%;
+  width:42px;height:42px;color:#fff;font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s}
+.lb3arr:hover{background:rgba(0,166,81,.3)}
+.lb3label{font-size:12px;color:rgba(255,255,255,.5);letter-spacing:2px;text-align:center;min-width:180px}
+
 /* MISC */
 .cf{position:fixed;top:-12px;pointer-events:none;z-index:9999;border-radius:2px;animation:cfall linear forwards}
 @keyframes cfall{to{transform:translateY(110vh) rotate(720deg);opacity:0}}
@@ -389,6 +427,28 @@ body{background:var(--bg);color:var(--w);font-family:'Inter',sans-serif;min-heig
       <span>Pos</span><span>Equipe</span><span style="text-align:center">Pts</span><span>Desempenho</span><span></span>
     </div>
     <div id="fulltbl"></div>
+  </div>
+
+  <!-- 3ª DINAMICA GALERIA -->
+  <div class="d3sec" id="d3sec">
+    <div class="seclbl">&#127865; 3&ordf; Din&acirc;mica &mdash; Doa&ccedil;&atilde;o de Alimentos</div>
+    <div class="d3intro">
+      Cada alimento doado para ONGs valeu pontos. Veja a solidariedade de cada filial em fotos.
+    </div>
+    <div class="d3grid" id="d3grid"></div>
+  </div>
+
+  <!-- LIGHTBOX 3D -->
+  <div class="lb3" id="lb3">
+    <div class="lb3inner">
+      <div class="lb3media" id="lb3media"></div>
+      <button class="lbclose" id="lb3close">&#10005;</button>
+      <div class="lb3nav">
+        <button class="lb3arr" id="lb3prev">&#8249;</button>
+        <div class="lb3label" id="lb3label"></div>
+        <button class="lb3arr" id="lb3next">&#8250;</button>
+      </div>
+    </div>
   </div>
 
   <div class="carsec">
@@ -754,7 +814,58 @@ document.getElementById('splash').addEventListener('click',function(){
   });
 })();
 
-buildTicker();buildStats();buildPodium();buildCards();buildDynamics();buildTable();buildCarousel();buildGallery();
+/* 3A DINAMICA GALLERY */
+var D3FILIAIS=[
+  {nome:'Belo Horizonte',icon:'🏙️',fotos:['fotos3d/bh/foto1.jpeg','fotos3d/bh/foto2.jpeg','fotos3d/bh/foto3.jpeg'],videos:[]},
+  {nome:'Campinas',icon:'🌿',fotos:['fotos3d/campinas/foto1.jpeg','fotos3d/campinas/foto2.jpeg','fotos3d/campinas/foto3.jpeg'],videos:[]},
+  {nome:'Comercial RJ',icon:'🏖️',fotos:['fotos3d/rj-comercial/foto1.jpeg','fotos3d/rj-comercial/foto2.jpeg'],videos:[]},
+  {nome:'Comercial SP',icon:'🏙️',fotos:['fotos3d/sp/foto1.jpeg','fotos3d/sp/foto2.jpeg','fotos3d/sp/foto3.jpeg','fotos3d/sp/foto4.jpeg','fotos3d/sp/foto5.jpeg','fotos3d/sp/foto6.jpeg'],videos:['fotos3d/sp/video1.mp4','fotos3d/sp/video2.mp4']},
+  {nome:'Ribeirão Preto',icon:'🌾',fotos:['fotos3d/ribeirao/foto1.jpeg','fotos3d/ribeirao/foto2.jpeg','fotos3d/ribeirao/foto3.jpeg','fotos3d/ribeirao/foto4.jpeg','fotos3d/ribeirao/foto5.jpeg'],videos:['fotos3d/ribeirao/video1.mp4']},
+  {nome:'Cobrança RJ',icon:'📋',fotos:['fotos3d/rj-cobranca/foto1.jpeg'],videos:[]},
+  {nome:'Jurídico Cível RJ',icon:'⚖️',fotos:['fotos3d/rj-civel/foto1.jpeg'],videos:[]},
+  {nome:'Jurídico Trabalhista RJ',icon:'👔',fotos:['fotos3d/rj-trabalhista/foto1.jpeg'],videos:[]},
+  {nome:'Jurídico Tributário RJ',icon:'📊',fotos:['fotos3d/rj-tributario/foto1.jpeg'],videos:[]}
+];
+var lb3Filial=null,lb3Idx=0;
+function openLb3(filial,idx){
+  lb3Filial=filial;lb3Idx=idx;showLb3();
+  document.getElementById('lb3').classList.add('open');
+}
+function showLb3(){
+  var all=lb3Filial.fotos.concat(lb3Filial.videos);
+  var src=all[lb3Idx],isVid=/\.mp4$/i.test(src);
+  var med=document.getElementById('lb3media');
+  med.innerHTML=isVid?'<video src="'+src+'" controls autoplay style="max-width:90vw;max-height:78vh;border-radius:10px"></video>':'<img src="'+src+'" alt="">';
+  document.getElementById('lb3label').textContent=lb3Filial.nome+' · '+(lb3Idx+1)+' / '+all.length;
+}
+document.getElementById('lb3prev').addEventListener('click',function(){var all=lb3Filial.fotos.concat(lb3Filial.videos);lb3Idx=(lb3Idx-1+all.length)%all.length;showLb3();});
+document.getElementById('lb3next').addEventListener('click',function(){var all=lb3Filial.fotos.concat(lb3Filial.videos);lb3Idx=(lb3Idx+1)%all.length;showLb3();});
+document.getElementById('lb3close').addEventListener('click',function(){document.getElementById('lb3').classList.remove('open');document.getElementById('lb3media').innerHTML='';});
+document.getElementById('lb3').addEventListener('click',function(e){if(e.target===this){this.classList.remove('open');document.getElementById('lb3media').innerHTML='';}});
+function buildD3(){
+  var grid=document.getElementById('d3grid');
+  D3FILIAIS.forEach(function(f){
+    var all=f.fotos.concat(f.videos),total=all.length;
+    var card=document.createElement('div');card.className='d3card';
+    var maxShow=Math.min(4,f.fotos.length);
+    var gridCls=maxShow===1?'n1':maxShow===2?'n2':maxShow===3?'n3':maxShow>=4?'n4':'nmore';
+    var thumbsHtml='';
+    f.fotos.slice(0,maxShow).forEach(function(src,i){
+      var isLast=i===maxShow-1&&total>maxShow;
+      if(isLast){
+        thumbsHtml+='<div class="d3more" onclick="openLb3(D3FILIAIS['+D3FILIAIS.indexOf(f)+'],'+i+')"><img class="d3thumb" src="'+src+'" alt=""><div class="d3more-overlay">+' +(total-maxShow+1)+' ver tudo</div></div>';
+      } else {
+        thumbsHtml+='<img class="d3thumb" src="'+src+'" alt="" onclick="openLb3(D3FILIAIS['+D3FILIAIS.indexOf(f)+'],'+i+')">';
+      }
+    });
+    card.innerHTML='<div class="d3card-hdr"><span class="d3card-icon">'+f.icon+'</span><span class="d3card-name">'+f.nome+'</span><span class="d3card-count">'+total+' arquivo'+(total>1?'s':'')+'</span></div>'
+      +'<div class="d3thumbs '+gridCls+'">'+thumbsHtml+'</div>'
+      +'<div class="d3card-footer">&#127865; Doa&ccedil;&atilde;o de Alimentos &mdash; 3&ordf; Din&acirc;mica Copa 2026</div>';
+    grid.appendChild(card);
+  });
+}
+
+buildTicker();buildStats();buildPodium();buildCards();buildDynamics();buildTable();buildCarousel();buildGallery();buildD3();
 </script>
 </body>
 </html>
