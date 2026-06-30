@@ -259,16 +259,6 @@ body{background:var(--bg);color:var(--w);font-family:'Inter',sans-serif;min-heig
 .mpulse2{position:absolute;top:-3px;right:-3px;width:14px;height:14px;border-radius:50%;background:var(--gold);border:2px solid var(--bg);animation:fpulse 1.5s ease-in-out infinite;display:none}
 .mbtn.playing .mpulse2{display:block}
 
-/* MUSIC BANNER */
-#mbanner{position:fixed;top:0;left:0;width:100%;z-index:9500;background:linear-gradient(90deg,#1a0040,#3a0080,#5a1a8a,#3a0080,#1a0040);
-  padding:12px 20px;display:flex;align-items:center;justify-content:center;gap:14px;cursor:pointer;
-  box-shadow:0 4px 30px rgba(138,47,201,.5);transition:opacity .5s,transform .5s;
-  animation:bannerslide .6s cubic-bezier(.34,1.56,.64,1) forwards}
-@keyframes bannerslide{from{transform:translateY(-100%);opacity:0}to{transform:translateY(0);opacity:1}}
-#mbanner span{font-size:13px;letter-spacing:1.5px;color:#fff;font-family:'Bebas Neue',sans-serif}
-#mbanner span b{color:var(--gold)}
-#mbanner .mbnote{font-size:22px;animation:mspin 2s linear infinite}
-#mbanner .mbnarrow{font-size:11px;color:rgba(255,255,255,.6);letter-spacing:1px;border:1px solid rgba(255,215,0,.4);padding:3px 10px;border-radius:20px;background:rgba(255,215,0,.08)}
 
 /* FLOATING INFO WIDGET */
 .fwrap{position:fixed;bottom:28px;right:28px;z-index:8000;display:flex;flex-direction:column;align-items:flex-end;gap:12px}
@@ -391,17 +381,14 @@ body{background:var(--bg);color:var(--w);font-family:'Inter',sans-serif;min-heig
   </div>
 </div>
 
-<!-- MUSIC ACTIVATION BANNER -->
-<div id="mbanner" onclick="activateSound()">
-  <span class="mbnote">&#127926;</span>
-  <span id="mbannertext">Clique em qualquer lugar para ativar &mdash; <b>Waka Waka &middot; Shakira</b></span>
-  <span class="mbnarrow">&#9654; Ativar m&uacute;sica</span>
-</div>
-
-<!-- YOUTUBE HIDDEN PLAYER -->
-<div style="position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;overflow:hidden" aria-hidden="true">
-  <div id="ytplayer"></div>
-</div>
+<!-- YOUTUBE AUTOPLAY IFRAME (allow="autoplay" libera som automatico) -->
+<iframe id="wakaplayer"
+  src="https://www.youtube.com/embed/pRpeEdMmmQ0?autoplay=1&loop=1&playlist=pRpeEdMmmQ0&controls=0&disablekb=1&fs=0&modestbranding=1&iv_load_policy=3&rel=0&enablejsapi=1&start=0&mute=0"
+  allow="autoplay; encrypted-media"
+  style="position:fixed;left:-9999px;top:-9999px;width:1px;height:1px;border:0"
+  frameborder="0"
+  aria-hidden="true">
+</iframe>
 
 <!-- MUSIC WIDGET -->
 <div class="mwrap" id="mwrap">
@@ -671,53 +658,34 @@ function confetti(n){
   setTimeout(function(){open=false;card.classList.remove('open');},6000);
 })();
 
-/* MUSIC PLAYER - Waka Waka Shakira */
-var YTPlayer=null,musicPlaying=false,ytReady=false,userActivated=false;
-function onYouTubeIframeAPIReady(){
-  YTPlayer=new YT.Player('ytplayer',{
-    height:'1',width:'1',
-    videoId:'pRpeEdMmmQ0',
-    playerVars:{autoplay:1,loop:1,playlist:'pRpeEdMmmQ0',controls:0,disablekb:1,fs:0,modestbranding:1,iv_load_policy:3,rel:0,mute:1},
-    events:{
-      onReady:function(e){ytReady=true;e.target.setVolume(50);e.target.mute();e.target.playVideo();},
-      onStateChange:function(e){
-        var S=YT.PlayerState;
-        if(e.data===S.PLAYING&&userActivated){musicPlaying=true;updateMusicUI(true);}
-        if(e.data===S.ENDED){e.target.playVideo();}
-      },
-      onError:function(){document.getElementById('mbannertext').textContent='Musica indisponivel nesta regiao';}
-    }
-  });
+/* MUSIC PLAYER - Waka Waka Shakira via postMessage */
+var musicPlaying=true;
+function sendYT(cmd){
+  var f=document.getElementById('wakaplayer');
+  if(f)f.contentWindow.postMessage(JSON.stringify({event:'command',func:cmd,args:[]}),'*');
 }
-function activateSound(){
-  if(userActivated)return;
-  userActivated=true;
-  hideMusicBanner();
-  if(ytReady&&YTPlayer){YTPlayer.unMute();YTPlayer.setVolume(50);YTPlayer.playVideo();musicPlaying=true;updateMusicUI(true);}
-}
-function hideMusicBanner(){var b=document.getElementById('mbanner');if(b){b.style.opacity='0';b.style.transform='translateY(-100%)';setTimeout(function(){b.style.display='none';},500);}}
 function updateMusicUI(on){
   var btn=document.getElementById('mbtn'),viz=document.getElementById('mviz');
   btn.classList.toggle('playing',on);
   if(viz)viz.classList.toggle('paused',!on);
   document.getElementById('mnote').textContent=on?'🎶':'🎵';
 }
+updateMusicUI(true);
 (function(){
   var btn=document.getElementById('mbtn'),tip=document.getElementById('mtooltip'),tipOpen=false,tipTimer;
   btn.addEventListener('click',function(e){
     e.stopPropagation();
-    if(!userActivated){activateSound();tipOpen=true;tip.classList.add('open');clearTimeout(tipTimer);tipTimer=setTimeout(function(){tip.classList.remove('open');tipOpen=false;},4000);return;}
-    if(musicPlaying){YTPlayer.pauseVideo();musicPlaying=false;updateMusicUI(false);}else{YTPlayer.unMute();YTPlayer.playVideo();musicPlaying=true;updateMusicUI(true);}
+    musicPlaying=!musicPlaying;
+    sendYT(musicPlaying?'playVideo':'pauseVideo');
+    updateMusicUI(musicPlaying);
     tipOpen=!tipOpen;tip.classList.toggle('open',tipOpen);
-    clearTimeout(tipTimer);if(tipOpen){tipTimer=setTimeout(function(){tip.classList.remove('open');tipOpen=false;},4000);}
+    clearTimeout(tipTimer);tipTimer=setTimeout(function(){tip.classList.remove('open');tipOpen=false;},4000);
   });
   document.addEventListener('click',function(e){
-    if(!document.getElementById('mwrap').contains(e.target)&&!document.getElementById('mbanner').contains(e.target)){if(tipOpen){tip.classList.remove('open');tipOpen=false;}}
-    activateSound();
-  },{once:false});
-  setTimeout(function(){tipOpen=true;tip.classList.add('open');tipTimer=setTimeout(function(){tip.classList.remove('open');tipOpen=false;},6000);},2000);
+    if(tipOpen&&!document.getElementById('mwrap').contains(e.target)){tip.classList.remove('open');tipOpen=false;}
+  });
+  setTimeout(function(){tipOpen=true;tip.classList.add('open');tipTimer=setTimeout(function(){tip.classList.remove('open');tipOpen=false;},5000);},1500);
 })();
-var ytTag=document.createElement('script');ytTag.src='https://www.youtube.com/iframe_api';document.head.appendChild(ytTag);
 
 buildTicker();buildStats();buildPodium();buildCards();buildDynamics();buildTable();buildCarousel();buildGallery();
 setTimeout(function(){confetti(100);},600);
