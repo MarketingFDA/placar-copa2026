@@ -228,6 +228,36 @@ body{background:var(--bg);color:var(--w);font-family:'Inter',sans-serif;min-heig
 .cf{position:fixed;top:-12px;pointer-events:none;z-index:9999;border-radius:2px;animation:cfall linear forwards}
 @keyframes cfall{to{transform:translateY(110vh) rotate(720deg);opacity:0}}
 
+/* SPLASH SCREEN */
+#splash{position:fixed;inset:0;z-index:99999;background:radial-gradient(ellipse at 50% 40%,#0d200d 0%,#050a05 60%,#000 100%);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;
+  cursor:pointer;transition:opacity .9s ease,transform .9s ease;overflow:hidden}
+#splash.hide{opacity:0;transform:scale(1.06);pointer-events:none}
+.sp-field{position:absolute;inset:0;opacity:.05;
+  background:repeating-linear-gradient(0deg,transparent,transparent 59px,rgba(0,166,81,.9) 59px,rgba(0,166,81,.9) 60px),
+             repeating-linear-gradient(90deg,transparent,transparent 59px,rgba(0,166,81,.9) 59px,rgba(0,166,81,.9) 60px)}
+.sp-glow1{position:absolute;width:500px;height:500px;border-radius:50%;
+  background:radial-gradient(circle,rgba(0,166,81,.12),transparent 70%);top:-100px;left:-100px;animation:bdrift 12s ease-in-out infinite alternate}
+.sp-glow2{position:absolute;width:600px;height:600px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,215,0,.08),transparent 70%);bottom:-150px;right:-150px;animation:bdrift 16s ease-in-out infinite alternate-reverse}
+.sp-trophy{font-size:100px;filter:drop-shadow(0 0 40px rgba(255,215,0,1)) drop-shadow(0 0 80px rgba(255,215,0,.5));
+  animation:trophybob 3s ease-in-out infinite;position:relative;z-index:1}
+.sp-logo{font-family:'Bebas Neue',sans-serif;font-size:62px;color:var(--gold);letter-spacing:8px;
+  text-shadow:0 0 50px rgba(255,215,0,.7),0 0 100px rgba(255,215,0,.3);line-height:1;position:relative;z-index:1}
+.sp-brand{font-size:11px;letter-spacing:4px;color:rgba(255,255,255,.4);text-transform:uppercase;position:relative;z-index:1}
+.sp-divider{width:120px;height:1px;background:linear-gradient(90deg,transparent,rgba(255,215,0,.4),transparent);margin:6px 0;position:relative;z-index:1}
+.sp-btn{padding:18px 56px;background:linear-gradient(135deg,#005c2a,#00A651,#4DCC85);
+  border:none;border-radius:50px;font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:4px;
+  color:#fff;cursor:pointer;position:relative;z-index:1;
+  box-shadow:0 0 50px rgba(0,166,81,.6),0 8px 30px rgba(0,0,0,.5);
+  animation:spbtnpulse 2s ease-in-out infinite;transition:transform .15s}
+.sp-btn:hover{transform:scale(1.06)}
+@keyframes spbtnpulse{0%,100%{box-shadow:0 0 40px rgba(0,166,81,.5),0 8px 30px rgba(0,0,0,.5)}
+  50%{box-shadow:0 0 80px rgba(0,166,81,.9),0 0 40px rgba(255,215,0,.3),0 8px 30px rgba(0,0,0,.5)}}
+.sp-music{font-size:11px;color:rgba(255,255,255,.35);letter-spacing:1.5px;
+  display:flex;align-items:center;gap:8px;position:relative;z-index:1;margin-top:8px}
+.sp-mnote{font-size:16px;animation:mspin 2s linear infinite;display:inline-block}
+
 /* MUSIC WIDGET */
 .mwrap{position:fixed;bottom:28px;left:28px;z-index:8000;display:flex;flex-direction:column;align-items:flex-start;gap:10px}
 .mbtn{width:58px;height:58px;border-radius:50%;background:linear-gradient(135deg,#2a0a40,#5a1a80,#8b2fc9);
@@ -381,14 +411,29 @@ body{background:var(--bg);color:var(--w);font-family:'Inter',sans-serif;min-heig
   </div>
 </div>
 
-<!-- YOUTUBE AUTOPLAY IFRAME (allow="autoplay" libera som automatico) -->
+<!-- YOUTUBE - carrega mudo em background, som liberado no clique da splash -->
 <iframe id="wakaplayer"
-  src="https://www.youtube.com/embed/pRpeEdMmmQ0?autoplay=1&loop=1&playlist=pRpeEdMmmQ0&controls=0&disablekb=1&fs=0&modestbranding=1&iv_load_policy=3&rel=0&enablejsapi=1&start=0&mute=0"
+  src="https://www.youtube.com/embed/pRpeEdMmmQ0?autoplay=1&loop=1&playlist=pRpeEdMmmQ0&controls=0&disablekb=1&fs=0&modestbranding=1&iv_load_policy=3&rel=0&enablejsapi=1&mute=1"
   allow="autoplay; encrypted-media"
   style="position:fixed;left:-9999px;top:-9999px;width:1px;height:1px;border:0"
   frameborder="0"
   aria-hidden="true">
 </iframe>
+
+<!-- SPLASH SCREEN -->
+<div id="splash">
+  <div class="sp-field"></div>
+  <div class="sp-glow1"></div><div class="sp-glow2"></div>
+  <div class="sp-trophy">&#127942;</div>
+  <div class="sp-logo">COPA 2026</div>
+  <div class="sp-brand">FRADEMA CONSULTORES TRIBUT&Aacute;RIOS</div>
+  <div class="sp-divider"></div>
+  <button class="sp-btn" id="sp-btn">&#9654; ENTRAR NO PLACAR</button>
+  <div class="sp-music">
+    <span class="sp-mnote">&#127926;</span>
+    Waka Waka &mdash; Shakira &middot; Copa do Mundo 2010
+  </div>
+</div>
 
 <!-- MUSIC WIDGET -->
 <div class="mwrap" id="mwrap">
@@ -658,25 +703,48 @@ function confetti(n){
   setTimeout(function(){open=false;card.classList.remove('open');},6000);
 })();
 
-/* MUSIC PLAYER - Waka Waka Shakira via postMessage */
-var musicPlaying=true;
-function sendYT(cmd){
+/* MUSIC PLAYER - Waka Waka Shakira */
+var musicPlaying=false;
+function sendYT(cmd,args){
   var f=document.getElementById('wakaplayer');
-  if(f)f.contentWindow.postMessage(JSON.stringify({event:'command',func:cmd,args:[]}),'*');
+  if(f)f.contentWindow.postMessage(JSON.stringify({event:'command',func:cmd,args:args||[]}),'*');
 }
 function updateMusicUI(on){
   var btn=document.getElementById('mbtn'),viz=document.getElementById('mviz');
-  btn.classList.toggle('playing',on);
+  if(btn)btn.classList.toggle('playing',on);
   if(viz)viz.classList.toggle('paused',!on);
-  document.getElementById('mnote').textContent=on?'🎶':'🎵';
+  var note=document.getElementById('mnote');if(note)note.textContent=on?'🎶':'🎵';
 }
-updateMusicUI(true);
+
+/* SPLASH — clique libera som (unica forma que funciona em todos os browsers) */
+document.getElementById('splash').addEventListener('click',function(){
+  var splash=this;
+  splash.classList.add('hide');
+  setTimeout(function(){if(splash.parentNode)splash.parentNode.removeChild(splash);},950);
+  /* desmutar e tocar */
+  sendYT('unMute');
+  sendYT('setVolume',[50]);
+  sendYT('playVideo');
+  musicPlaying=true;
+  updateMusicUI(true);
+  /* confetti na entrada */
+  setTimeout(function(){confetti(100);},200);
+  setTimeout(function(){confetti(60);},1400);
+  setTimeout(function(){confetti(45);},3000);
+  /* abrir tooltip da musica por 4s */
+  var tip=document.getElementById('mtooltip');
+  if(tip){tip.classList.add('open');setTimeout(function(){tip.classList.remove('open');},4500);}
+});
+
+/* BOTAO FLUTUANTE toggle play/pause */
 (function(){
   var btn=document.getElementById('mbtn'),tip=document.getElementById('mtooltip'),tipOpen=false,tipTimer;
+  if(!btn)return;
   btn.addEventListener('click',function(e){
     e.stopPropagation();
     musicPlaying=!musicPlaying;
     sendYT(musicPlaying?'playVideo':'pauseVideo');
+    if(musicPlaying)sendYT('unMute');
     updateMusicUI(musicPlaying);
     tipOpen=!tipOpen;tip.classList.toggle('open',tipOpen);
     clearTimeout(tipTimer);tipTimer=setTimeout(function(){tip.classList.remove('open');tipOpen=false;},4000);
@@ -684,13 +752,9 @@ updateMusicUI(true);
   document.addEventListener('click',function(e){
     if(tipOpen&&!document.getElementById('mwrap').contains(e.target)){tip.classList.remove('open');tipOpen=false;}
   });
-  setTimeout(function(){tipOpen=true;tip.classList.add('open');tipTimer=setTimeout(function(){tip.classList.remove('open');tipOpen=false;},5000);},1500);
 })();
 
 buildTicker();buildStats();buildPodium();buildCards();buildDynamics();buildTable();buildCarousel();buildGallery();
-setTimeout(function(){confetti(100);},600);
-setTimeout(function(){confetti(60);},2200);
-setTimeout(function(){confetti(45);},4500);
 </script>
 </body>
 </html>
