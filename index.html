@@ -428,7 +428,7 @@ function buildDynamics(){
   var wrap=document.getElementById('dynwrap');
   [{n:'1',cls:'',icon:'⚽',title:'1ª Dinâmica',desc:'Primeira fase da Copa 2026 Fradema: desafios de desempenho entre filiais e departamentos em todo o Brasil.',tag:'✔ Concluída'},
    {n:'2',cls:'d-silver',icon:'🎯',title:'2ª Dinâmica',desc:'Segunda fase com novos desafios e pontuações acumuladas. As equipes elevaram o nível da competição.',tag:'✔ Concluída'},
-   {n:'3',cls:'d-gold',icon:'🧥',title:'3ª Dinâmica — Agasalho',desc:'Campanha solidária: cada peça de roupa de frio doada para ONGs valeu pontos. Solidariedade que une e pontua.',tag:'🏆 Dinâmica Final'}
+   {n:'3',cls:'d-gold',icon:'🍱',title:'3ª Dinâmica — Doação de Alimentos',desc:'Campanha solidária: cada alimento doado para ONGs valeu pontos. Solidariedade que une e pontua.',tag:'🏆 Dinâmica Final'}
   ].forEach(function(d){
     var card=document.createElement('div');card.className='dyn-card '+d.cls;
     card.innerHTML='<span class="dyn-icon">'+d.icon+'</span><div class="dyn-num">'+d.n+'</div><div class="dyn-title">'+d.title+'</div><div class="dyn-desc">'+d.desc+'</div><span class="dyn-tag">'+d.tag+'</span>';
