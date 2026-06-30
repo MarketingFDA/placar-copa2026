@@ -151,8 +151,8 @@ body{background:var(--bg);color:var(--w);font-family:'Inter',sans-serif;min-heig
 
 /* TABLE */
 .twrap{background:var(--card2);border:1px solid var(--brd);border-radius:18px;overflow:hidden;box-shadow:0 10px 50px rgba(0,0,0,.5)}
-.thead{display:grid;grid-template-columns:60px 1fr 90px 110px 60px;padding:13px 26px;background:rgba(255,255,255,.025);border-bottom:1px solid var(--brd);font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gray)}
-.trow{display:grid;grid-template-columns:60px 1fr 90px 110px 60px;padding:14px 26px;border-bottom:1px solid rgba(255,255,255,.03);align-items:center;transition:all .2s ease;cursor:default}
+.thead{display:grid;grid-template-columns:60px 1fr 54px 54px 54px 66px 110px 44px;padding:13px 26px;background:rgba(255,255,255,.025);border-bottom:1px solid var(--brd);font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gray)}
+.trow{display:grid;grid-template-columns:60px 1fr 54px 54px 54px 66px 110px 44px;padding:14px 26px;border-bottom:1px solid rgba(255,255,255,.03);align-items:center;transition:all .2s ease;cursor:default}
 .trow:last-child{border-bottom:none}
 .trow:hover{background:rgba(0,166,81,.055);padding-left:34px}
 .trow.rg{background:rgba(255,215,0,.025)}.trow.rs{background:rgba(200,200,200,.015)}.trow.rb{background:rgba(205,127,50,.02)}
@@ -164,7 +164,10 @@ body{background:var(--bg);color:var(--w);font-family:'Inter',sans-serif;min-heig
 .tlink:hover{color:var(--g2)}
 .cam{font-size:13px;opacity:.4;transition:opacity .2s,transform .2s}.tlink:hover .cam{opacity:1;transform:scale(1.2)}
 .tpts{font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--w);text-align:center}
-.trow.rg .tpts{color:var(--gold)}.trow.rs .tpts{color:var(--sil)}.trow.rb .tpts{color:var(--bro)}
+.tpts{text-align:center;font-size:13px;color:rgba(255,255,255,.7)}
+.td1{color:rgba(255,255,255,.45);font-size:12px}.td2{color:rgba(255,255,255,.45);font-size:12px}.td3{color:rgba(255,255,255,.45);font-size:12px}
+.ttotal{color:var(--gold);font-weight:700;font-size:15px}
+.trow.rg .ttotal{color:var(--gold)}.trow.rs .ttotal{color:var(--sil)}.trow.rb .ttotal{color:var(--bro)}
 .tbarw{height:6px;background:rgba(255,255,255,.04);border-radius:6px;overflow:hidden}
 .tbarf{height:100%;border-radius:6px;width:0;background:linear-gradient(90deg,var(--g3),var(--g));transition:width 1.2s ease}
 .trow.rg .tbarf{background:linear-gradient(90deg,#7a4e00,var(--gold))}.trow.rs .tbarf{background:linear-gradient(90deg,#555,var(--sil))}.trow.rb .tbarf{background:linear-gradient(90deg,#6b3600,var(--bro))}
@@ -374,7 +377,8 @@ body{background:var(--bg);color:var(--w);font-family:'Inter',sans-serif;min-heig
   .dynamics-wrap{grid-template-columns:1fr}
 }
 @media(max-width:640px){
-  .thead,.trow{grid-template-columns:46px 1fr 70px 0 46px}
+  .thead,.trow{grid-template-columns:46px 1fr 44px 44px 44px 54px 0 36px}
+  .td1,.td2,.td3{font-size:11px}
   .tbarw{display:none}.grid{grid-template-columns:1fr}.carslide img{height:320px}
 }
 </style>
@@ -424,7 +428,7 @@ body{background:var(--bg);color:var(--w);font-family:'Inter',sans-serif;min-heig
   </div>
   <div class="twrap">
     <div class="thead">
-      <span>Pos</span><span>Equipe</span><span style="text-align:center">Pts</span><span>Desempenho</span><span></span>
+      <span>Pos</span><span>Equipe</span><span style="text-align:center">1ª Din</span><span style="text-align:center">2ª Din</span><span style="text-align:center">3ª Din</span><span style="text-align:center">Total</span><span>Desempenho</span><span></span>
     </div>
     <div id="fulltbl"></div>
   </div>
@@ -554,17 +558,17 @@ body{background:var(--bg);color:var(--w);font-family:'Inter',sans-serif;min-heig
 
 <script>
 var RAW=[
-  {name:"Comercial RJ",            score:148},
-  {name:"Belo Horizonte",          score:141},
-  {name:"Campinas",                score:141},
-  {name:"Comercial SP",            score:131},
-  {name:"Santa Catarina",          score:108},
-  {name:"Ribeirão Preto",     score:91},
-  {name:"Jurídico Tributário RJ", score:90},
-  {name:"Jurídico Cível RJ",      score:83},
-  {name:"Cobrança RJ",        score:82},
-  {name:"Jurídico Trabalhista RJ",     score:82},
-  {name:"Manaus",                  score:82}
+  {name:"Comercial RJ",            d1:114, d2:100, d3:148, score:362},
+  {name:"Campinas",                d1:120, d2:100, d3:141, score:361},
+  {name:"Belo Horizonte",          d1:110, d2:100, d3:141, score:351},
+  {name:"Comercial SP",            d1:84,  d2:97,  d3:131, score:312},
+  {name:"Santa Catarina",          d1:99,  d2:100, d3:108, score:307},
+  {name:"Ribeirão Preto",          d1:112, d2:89,  d3:91,  score:292},
+  {name:"Manaus",                  d1:96,  d2:100, d3:82,  score:278},
+  {name:"Jurídico Tributário RJ",  d1:66,  d2:99,  d3:90,  score:255},
+  {name:"Jurídico Cível RJ",       d1:66,  d2:97,  d3:83,  score:246},
+  {name:"Jurídico Trabalhista RJ", d1:61,  d2:100, d3:82,  score:243},
+  {name:"Cobrança RJ",             d1:0,   d2:100, d3:82,  score:182}
 ];
 var SLOGANS={
   "Comercial RJ":"Campeões em Campo",
@@ -683,7 +687,8 @@ function buildTable(filter){
     var row=document.createElement('div');row.className='trow '+m.rc;
     row.style.cssText='opacity:0;transform:translateX(-16px);transition:opacity .35s,transform .35s';
     var nameHtml=LINKS[t.name]?'<a class="tlink" href="'+href+'" target="_blank" rel="noopener">'+m.badge+' '+t.name+' <span class="cam">📷</span></a>':'<span>'+m.badge+' '+t.name+'</span>';
-    row.innerHTML='<div class="tpos '+m.pc+'">'+t.pos+'</div><div class="tname">'+nameHtml+'</div><div class="tpts">'+t.score+'</div><div class="tbarw"><div class="tbarf"></div></div><div class="tmed">'+m.badge+'</div>';
+    var d1html=t.d1?t.d1:'<span style="color:var(--gray);font-size:10px">—</span>';
+    row.innerHTML='<div class="tpos '+m.pc+'">'+t.pos+'</div><div class="tname">'+nameHtml+'</div><div class="tpts td1">'+d1html+'</div><div class="tpts td2">'+t.d2+'</div><div class="tpts td3">'+t.d3+'</div><div class="tpts ttotal">'+t.score+'</div><div class="tbarw"><div class="tbarf"></div></div><div class="tmed">'+m.badge+'</div>';
     tbl.appendChild(row);
     setTimeout(function(){row.style.opacity='1';row.style.transform='translateX(0)';row.querySelector('.tbarf').style.width=pct+'%';},50+i*32);
   });
