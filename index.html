@@ -471,14 +471,10 @@ body{background:var(--bg);color:var(--w);font-family:'Inter',sans-serif;min-heig
   </div>
 </div>
 
-<!-- YOUTUBE - carrega mudo em background, som liberado no clique da splash -->
-<iframe id="wakaplayer"
-  src="https://www.youtube.com/embed/pRpeEdMmmQ0?autoplay=1&loop=1&playlist=pRpeEdMmmQ0&controls=0&disablekb=1&fs=0&modestbranding=1&iv_load_policy=3&rel=0&enablejsapi=1&mute=1"
-  allow="autoplay; encrypted-media"
-  style="position:fixed;left:-9999px;top:-9999px;width:1px;height:1px;border:0"
-  frameborder="0"
-  aria-hidden="true">
-</iframe>
+<!-- AUDIO - Waka Waka Shakira -->
+<audio id="wakaaudio" loop preload="auto">
+  <source src="waka.mp3" type="audio/mpeg">
+</audio>
 
 <!-- SPLASH SCREEN -->
 <div id="splash">
@@ -763,12 +759,11 @@ function confetti(n){
   setTimeout(function(){open=false;card.classList.remove('open');},6000);
 })();
 
-/* MUSIC PLAYER - Waka Waka Shakira */
+/* MUSIC PLAYER - Waka Waka Shakira (MP3 local) */
+var waka=document.getElementById('wakaaudio');
 var musicPlaying=false;
-function sendYT(cmd,args){
-  var f=document.getElementById('wakaplayer');
-  if(f)f.contentWindow.postMessage(JSON.stringify({event:'command',func:cmd,args:args||[]}),'*');
-}
+waka.volume=0.5;
+
 function updateMusicUI(on){
   var btn=document.getElementById('mbtn'),viz=document.getElementById('mviz');
   if(btn)btn.classList.toggle('playing',on);
@@ -776,22 +771,15 @@ function updateMusicUI(on){
   var note=document.getElementById('mnote');if(note)note.textContent=on?'🎶':'🎵';
 }
 
-/* SPLASH — clique libera som (unica forma que funciona em todos os browsers) */
+/* SPLASH — clique destrava audio (obrigatorio pelo browser, mas e so uma vez) */
 document.getElementById('splash').addEventListener('click',function(){
   var splash=this;
   splash.classList.add('hide');
   setTimeout(function(){if(splash.parentNode)splash.parentNode.removeChild(splash);},950);
-  /* desmutar e tocar */
-  sendYT('unMute');
-  sendYT('setVolume',[50]);
-  sendYT('playVideo');
-  musicPlaying=true;
-  updateMusicUI(true);
-  /* confetti na entrada */
+  waka.play().then(function(){musicPlaying=true;updateMusicUI(true);}).catch(function(){});
   setTimeout(function(){confetti(100);},200);
   setTimeout(function(){confetti(60);},1400);
   setTimeout(function(){confetti(45);},3000);
-  /* abrir tooltip da musica por 4s */
   var tip=document.getElementById('mtooltip');
   if(tip){tip.classList.add('open');setTimeout(function(){tip.classList.remove('open');},4500);}
 });
@@ -802,9 +790,8 @@ document.getElementById('splash').addEventListener('click',function(){
   if(!btn)return;
   btn.addEventListener('click',function(e){
     e.stopPropagation();
-    musicPlaying=!musicPlaying;
-    sendYT(musicPlaying?'playVideo':'pauseVideo');
-    if(musicPlaying)sendYT('unMute');
+    if(musicPlaying){waka.pause();musicPlaying=false;}
+    else{waka.play();musicPlaying=true;}
     updateMusicUI(musicPlaying);
     tipOpen=!tipOpen;tip.classList.toggle('open',tipOpen);
     clearTimeout(tipTimer);tipTimer=setTimeout(function(){tip.classList.remove('open');tipOpen=false;},4000);
