@@ -227,6 +227,42 @@ body{background:var(--bg);color:var(--w);font-family:'Inter',sans-serif;min-heig
 /* MISC */
 .cf{position:fixed;top:-12px;pointer-events:none;z-index:9999;border-radius:2px;animation:cfall linear forwards}
 @keyframes cfall{to{transform:translateY(110vh) rotate(720deg);opacity:0}}
+
+/* FLOATING INFO WIDGET */
+.fwrap{position:fixed;bottom:28px;right:28px;z-index:8000;display:flex;flex-direction:column;align-items:flex-end;gap:12px}
+.fball{width:58px;height:58px;border-radius:50%;background:linear-gradient(135deg,#0f2a0f,#006B34,#00A651);
+  border:2px solid rgba(255,215,0,.5);box-shadow:0 0 24px rgba(0,166,81,.5),0 0 50px rgba(0,166,81,.2);
+  display:flex;align-items:center;justify-content:center;font-size:28px;cursor:pointer;
+  animation:fballbob 2.8s ease-in-out infinite;transition:transform .2s,box-shadow .2s;user-select:none}
+.fball:hover{transform:scale(1.12);box-shadow:0 0 36px rgba(255,215,0,.6),0 0 70px rgba(255,215,0,.3)}
+@keyframes fballbob{
+  0%,100%{transform:translateY(0) rotate(-8deg)}
+  30%{transform:translateY(-10px) rotate(5deg)}
+  60%{transform:translateY(-5px) rotate(-3deg)}
+}
+.fcard{background:linear-gradient(150deg,#060e06,#0a1a0a,#0d200d);
+  border:1px solid rgba(255,215,0,.35);border-radius:18px;padding:20px 22px;
+  min-width:260px;max-width:300px;
+  box-shadow:0 12px 60px rgba(0,0,0,.8),0 0 30px rgba(0,166,81,.2),inset 0 1px 0 rgba(255,255,255,.06);
+  backdrop-filter:blur(10px);
+  transform:scale(.85) translateY(10px);opacity:0;pointer-events:none;
+  transition:all .35s cubic-bezier(.34,1.56,.64,1);transform-origin:bottom right}
+.fcard.open{transform:scale(1) translateY(0);opacity:1;pointer-events:all}
+.fcard-top{display:flex;align-items:center;gap:10px;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid rgba(255,215,0,.18)}
+.fcard-ball{font-size:26px;animation:fballbob 3s ease-in-out infinite}
+.fcard-title{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:2px;color:var(--gold);line-height:1.2}
+.fcard-sub{font-size:9px;letter-spacing:1.5px;color:var(--gray);text-transform:uppercase}
+.fcard-body{font-size:11px;color:rgba(255,255,255,.75);line-height:1.8;letter-spacing:.3px}
+.fcard-body strong{color:var(--g2)}
+.fcard-ramal{margin-top:12px;padding:10px 14px;background:rgba(255,215,0,.08);border:1px solid rgba(255,215,0,.2);border-radius:10px;display:flex;align-items:center;gap:10px}
+.fcard-ramal-icon{font-size:18px}
+.fcard-ramal-txt{font-size:11px;line-height:1.5}
+.fcard-ramal-txt b{color:var(--gold);font-size:13px;font-family:'Bebas Neue',sans-serif;letter-spacing:1px}
+.fcard-close{position:absolute;top:10px;right:12px;background:none;border:none;color:var(--gray);font-size:14px;cursor:pointer;padding:2px 6px;border-radius:6px;transition:color .2s,background .2s}
+.fcard-close:hover{color:#fff;background:rgba(255,255,255,.08)}
+.fcard{position:relative}
+.fpulse{position:absolute;top:-4px;right:-4px;width:14px;height:14px;border-radius:50%;background:var(--g);animation:fpulse 2s ease-in-out infinite;border:2px solid var(--bg)}
+@keyframes fpulse{0%,100%{box-shadow:0 0 0 0 rgba(0,166,81,.7)}70%{box-shadow:0 0 0 8px rgba(0,166,81,0)}}
 .footer{text-align:center;padding:28px;color:var(--gray);font-size:10px;letter-spacing:3px;text-transform:uppercase;border-top:1px solid rgba(255,255,255,.04);margin-top:40px}
 .pdot{display:inline-block;width:8px;height:8px;background:var(--gold);border-radius:50%;margin-right:8px;animation:pring 2s ease infinite}
 @keyframes pring{0%{box-shadow:0 0 0 0 rgba(255,215,0,.6)}70%{box-shadow:0 0 0 10px rgba(255,215,0,0)}100%{box-shadow:0 0 0 0 rgba(255,215,0,0)}}
@@ -311,6 +347,34 @@ body{background:var(--bg);color:var(--w);font-family:'Inter',sans-serif;min-heig
       &#8592; arraste para navegar &middot; clique para abrir a pasta &#8594;
     </div>
   </div>
+</div>
+
+<!-- FLOATING INFO WIDGET -->
+<div class="fwrap" id="fwrap">
+  <div class="fcard" id="fcard">
+    <div class="fpulse"></div>
+    <button class="fcard-close" id="fcardclose" title="Fechar">&#10005;</button>
+    <div class="fcard-top">
+      <span class="fcard-ball">&#9917;</span>
+      <div>
+        <div class="fcard-title">Copa 2026 &mdash; Fradema</div>
+        <div class="fcard-sub">Placar Oficial de Desempenho</div>
+      </div>
+    </div>
+    <div class="fcard-body">
+      &#128187; P&aacute;gina desenvolvida pelo<br>
+      <strong>Departamento de Marketing</strong><br>
+      <strong>Fradema Consultores Tribut&aacute;rios</strong>
+      <div class="fcard-ramal">
+        <span class="fcard-ramal-icon">&#128222;</span>
+        <div class="fcard-ramal-txt">
+          Sugest&otilde;es ou d&uacute;vidas?<br>
+          <b>Gabriel Lins &mdash; Ramal 3CX 2212</b>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="fball" id="fball" title="Sobre esta p&aacute;gina">&#9917;</div>
 </div>
 
 <div class="lb" id="lb">
@@ -524,6 +588,18 @@ function confetti(n){
     requestAnimationFrame(draw);
   }draw();
 })();
+/* FLOATING WIDGET */
+(function(){
+  var ball=document.getElementById('fball'),card=document.getElementById('fcard'),close=document.getElementById('fcardclose');
+  var open=false;
+  function toggle(){open=!open;card.classList.toggle('open',open);}
+  ball.addEventListener('click',function(e){e.stopPropagation();toggle();});
+  close.addEventListener('click',function(e){e.stopPropagation();open=false;card.classList.remove('open');});
+  document.addEventListener('click',function(e){if(open&&!document.getElementById('fwrap').contains(e.target)){open=false;card.classList.remove('open');}});
+  setTimeout(function(){open=true;card.classList.add('open');},1800);
+  setTimeout(function(){open=false;card.classList.remove('open');},6000);
+})();
+
 buildTicker();buildStats();buildPodium();buildCards();buildDynamics();buildTable();buildCarousel();buildGallery();
 setTimeout(function(){confetti(100);},600);
 setTimeout(function(){confetti(60);},2200);
