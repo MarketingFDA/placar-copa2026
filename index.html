@@ -484,7 +484,7 @@ body{background:var(--bg);color:var(--w);font-family:'Inter',sans-serif;min-heig
   <div class="sp-logo">COPA 2026</div>
   <div class="sp-brand">FRADEMA CONSULTORES TRIBUT&Aacute;RIOS</div>
   <div class="sp-divider"></div>
-  <button class="sp-btn" id="sp-btn">&#9654; ENTRAR NO PLACAR</button>
+  <button class="sp-btn" id="sp-btn" onclick="enterPlacar()">&#9654; ENTRAR NO PLACAR</button>
   <div class="sp-music">
     <span class="sp-mnote">&#127926;</span>
     Waka Waka &mdash; Shakira &middot; Copa do Mundo 2010
@@ -771,18 +771,23 @@ function updateMusicUI(on){
   var note=document.getElementById('mnote');if(note)note.textContent=on?'🎶':'🎵';
 }
 
-/* SPLASH — clique destrava audio (obrigatorio pelo browser, mas e so uma vez) */
-document.getElementById('splash').addEventListener('click',function(){
-  var splash=this;
-  splash.classList.add('hide');
-  setTimeout(function(){if(splash.parentNode)splash.parentNode.removeChild(splash);},950);
-  waka.play().then(function(){musicPlaying=true;updateMusicUI(true);}).catch(function(){});
+function enterPlacar(){
+  /* fecha splash */
+  var splash=document.getElementById('splash');
+  if(splash){splash.classList.add('hide');setTimeout(function(){if(splash.parentNode)splash.parentNode.removeChild(splash);},950);}
+  /* toca musica — dentro do onclick o browser libera sem restricao */
+  waka.currentTime=0;
+  waka.play();
+  musicPlaying=true;
+  updateMusicUI(true);
+  /* confetti */
   setTimeout(function(){confetti(100);},200);
   setTimeout(function(){confetti(60);},1400);
   setTimeout(function(){confetti(45);},3000);
+  /* tooltip */
   var tip=document.getElementById('mtooltip');
   if(tip){tip.classList.add('open');setTimeout(function(){tip.classList.remove('open');},4500);}
-});
+}
 
 /* BOTAO FLUTUANTE toggle play/pause */
 (function(){
